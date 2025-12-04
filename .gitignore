@@ -23,6 +23,5 @@ node_modules/
 *.tmp
 *.temp
 
-# Large video files (exceed GitHub 100MB limit)
-*.mp4
+# Original large video file (102MB - exceeds GitHub limit)
 Assets/GRIMBERGEN_TUNNEL_MARKETING_V1*
