@@ -1,0 +1,1545 @@
+/**
+ * AIM-Robotics Admin Panel & Live Editor Styles
+ */
+
+/* ============================================
+   ADMIN TOGGLE BUTTON
+   ============================================ */
+.admin-toggle {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    color: #6b7280;
+    cursor: pointer;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-toggle svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.5s ease;
+}
+
+.admin-toggle:hover {
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: white;
+    border-color: #0066cc;
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 102, 204, 0.4);
+}
+
+.admin-toggle:hover svg {
+    transform: rotate(90deg);
+}
+
+.admin-toggle.active {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff8533 100%);
+    color: white;
+    border-color: #ff6b00;
+    box-shadow: 0 6px 25px rgba(255, 107, 0, 0.4);
+}
+
+.admin-toggle.active svg {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   ADMIN LOGIN MODAL
+   ============================================ */
+.admin-login-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.admin-login-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-login-content {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(0, 102, 204, 0.1);
+}
+
+.admin-login-modal.active .admin-login-content {
+    transform: scale(1) translateY(0);
+}
+
+.admin-login-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-login-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.admin-login-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.admin-login-close:hover {
+    color: #ff6b00;
+}
+
+.admin-login-body {
+    padding: 25px;
+}
+
+.admin-login-body p {
+    color: #9ca3af;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.admin-password-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.admin-password-input:focus {
+    outline: none;
+    border-color: #0066cc;
+    background: rgba(0, 102, 204, 0.1);
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.2);
+}
+
+.admin-password-input.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+.admin-login-error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 10px;
+    min-height: 20px;
+}
+
+.admin-login-footer {
+    padding: 0 25px 25px;
+}
+
+.admin-login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-login-btn:hover {
+    background: linear-gradient(135deg, #0077ed 0%, #0066cc 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+}
+
+/* ============================================
+   ADMIN PANEL
+   ============================================ */
+.admin-panel {
+    position: fixed;
+    top: 100px;
+    right: -350px;
+    width: 320px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 20px;
+    z-index: 10000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(0, 102, 204, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.admin-panel.active {
+    right: 30px;
+}
+
+.admin-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(0, 102, 204, 0.1), transparent);
+}
+
+.admin-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.admin-icon {
+    font-size: 1.25rem;
+}
+
+.admin-panel-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #10b981;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.admin-panel-body {
+    padding: 20px;
+}
+
+.admin-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.admin-info p {
+    color: white;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.admin-info small {
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat:hover {
+    background: rgba(0, 102, 204, 0.1);
+    border-color: rgba(0, 102, 204, 0.3);
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0066cc;
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-panel.has-changes .stat:first-child .stat-value {
+    color: #ff6b00;
+}
+
+.admin-panel-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e5e7eb;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.admin-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.admin-btn-save {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.admin-btn-save:hover {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.2));
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.2);
+}
+
+.admin-btn-reset {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.admin-btn-reset:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.2));
+    box-shadow: 0 5px 20px rgba(239, 68, 68, 0.2);
+}
+
+.admin-btn-export {
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 102, 204, 0.1));
+    border-color: rgba(0, 102, 204, 0.3);
+    color: #0066cc;
+}
+
+.admin-btn-export:hover {
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.2));
+    box-shadow: 0 5px 20px rgba(0, 102, 204, 0.2);
+}
+
+.admin-btn-close {
+    background: linear-gradient(135deg, rgba(107, 114, 128, 0.2), rgba(107, 114, 128, 0.1));
+    border-color: rgba(107, 114, 128, 0.3);
+    color: #6b7280;
+}
+
+.admin-btn-close:hover {
+    background: linear-gradient(135deg, rgba(107, 114, 128, 0.3), rgba(107, 114, 128, 0.2));
+}
+
+/* ============================================
+   EDIT MODE STYLES
+   ============================================ */
+.admin-edit-mode .editable {
+    position: relative;
+    outline: 2px dashed transparent;
+    outline-offset: 4px;
+    transition: all 0.3s ease;
+    cursor: text;
+    border-radius: 4px;
+}
+
+.admin-edit-mode .editable:hover {
+    outline-color: rgba(0, 102, 204, 0.5);
+    background: rgba(0, 102, 204, 0.05);
+}
+
+.admin-edit-mode .editable.editing {
+    outline-color: #0066cc;
+    outline-style: solid;
+    background: rgba(0, 102, 204, 0.1);
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.2);
+}
+
+.admin-edit-mode .editable.unsaved {
+    outline-color: #ff6b00 !important;
+}
+
+.admin-edit-mode .editable.unsaved::after {
+    content: '●';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    color: #ff6b00;
+    font-size: 12px;
+}
+
+/* Edit mode indicator overlay */
+.admin-edit-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0066cc, #ff6b00, #0066cc);
+    background-size: 200% 100%;
+    animation: editModeGradient 3s linear infinite;
+    z-index: 10000;
+}
+
+@keyframes editModeGradient {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+/* ============================================
+   INLINE TOOLBAR
+   ============================================ */
+.inline-toolbar {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 10002;
+    animation: toolbarFadeIn 0.2s ease;
+}
+
+@keyframes toolbarFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.inline-toolbar button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: #e5e7eb;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.inline-toolbar button:hover {
+    background: rgba(0, 102, 204, 0.2);
+    border-color: rgba(0, 102, 204, 0.3);
+    color: #0066cc;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 4px;
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+.admin-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.95rem;
+    z-index: 10003;
+    animation: notificationSlideUp 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes notificationSlideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.admin-notification.fade-out {
+    animation: notificationFadeOut 0.3s ease forwards;
+}
+
+@keyframes notificationFadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+}
+
+.admin-notification.success {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.15), rgba(22, 33, 62, 0.98));
+}
+
+.admin-notification.warning {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.15), rgba(22, 33, 62, 0.98));
+}
+
+.admin-notification.error {
+    border-color: rgba(239, 68, 68, 0.3);
+    background: linear-gradient(145deg, rgba(239, 68, 68, 0.15), rgba(22, 33, 62, 0.98));
+}
+
+.admin-notification.info {
+    border-color: rgba(0, 102, 204, 0.3);
+    background: linear-gradient(145deg, rgba(0, 102, 204, 0.15), rgba(22, 33, 62, 0.98));
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.notification-close:hover {
+    color: white;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .admin-panel {
+        width: 100%;
+        right: -100%;
+        border-radius: 20px 0 0 20px;
+    }
+    
+    .admin-panel.active {
+        right: 0;
+    }
+    
+    .admin-toggle {
+        bottom: 80px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .admin-notification {
+        width: calc(100% - 40px);
+        left: 20px;
+        transform: none;
+    }
+    
+    .admin-notification.fade-out {
+        animation: notificationFadeOutMobile 0.3s ease forwards;
+    }
+    
+    @keyframes notificationFadeOutMobile {
+        to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    }
+}
+
+/* ============================================
+   IMAGE EDIT MODAL
+   ============================================ */
+.admin-image-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.admin-image-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-image-content {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(0, 102, 204, 0.1);
+}
+
+.admin-image-modal.active .admin-image-content {
+    transform: scale(1) translateY(0);
+}
+
+.admin-image-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-image-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.admin-image-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.admin-image-close:hover {
+    color: #ff6b00;
+}
+
+.admin-image-body {
+    padding: 25px;
+    overflow-y: auto;
+    max-height: calc(90vh - 180px);
+}
+
+.image-preview-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-preview-container:hover {
+    border-color: #0066cc;
+    background: rgba(0, 102, 204, 0.1);
+}
+
+.image-preview-container.drag-over {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-preview-container:hover .image-overlay {
+    opacity: 1;
+}
+
+.image-overlay span {
+    color: white;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    background: rgba(0, 102, 204, 0.8);
+    border-radius: 8px;
+}
+
+.image-options {
+    margin-top: 20px;
+}
+
+.image-option-group {
+    margin-bottom: 15px;
+}
+
+.image-option-group label {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.image-option-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.image-option-group input:focus {
+    outline: none;
+    border-color: #0066cc;
+    background: rgba(0, 102, 204, 0.1);
+}
+
+.image-option-group input::placeholder {
+    color: #6b7280;
+}
+
+.image-info {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-info span {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+.admin-image-footer {
+    display: flex;
+    gap: 10px;
+    padding: 20px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-image-footer .admin-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 14px;
+}
+
+.admin-btn-cancel {
+    background: rgba(107, 114, 128, 0.2);
+    border-color: rgba(107, 114, 128, 0.3);
+    color: #9ca3af;
+}
+
+.admin-btn-apply {
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    border-color: #0066cc;
+    color: white;
+}
+
+.admin-btn-apply:hover {
+    background: linear-gradient(135deg, #0077ed 0%, #0066cc 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+}
+
+/* ============================================
+   EDITABLE IMAGE WRAPPER & OVERLAY
+   ============================================ */
+.editable-image-wrapper {
+    position: relative !important;
+    display: block;
+}
+
+.editable-image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Indicator border when in edit mode */
+.admin-edit-mode .editable-image-wrapper {
+    outline: 2px dashed rgba(0, 102, 204, 0.5);
+    outline-offset: 2px;
+}
+
+.admin-edit-mode .editable-image-wrapper:hover {
+    outline: 2px solid #0066cc;
+}
+
+.image-edit-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: inherit;
+    z-index: 100;
+}
+
+/* Always show overlay in edit mode on hover */
+.admin-edit-mode .editable-image-wrapper:hover .image-edit-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Quick edit badge - always visible in edit mode */
+.image-edit-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 101;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+}
+
+.image-edit-badge svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    fill: none;
+}
+
+.admin-edit-mode .image-edit-badge {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.admin-edit-mode .image-edit-badge:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.6);
+}
+
+.image-edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.image-edit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.4);
+}
+
+.image-edit-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.image-edit-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.img-action-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.img-action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.img-action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.img-action-btn.img-replace:hover {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: #10b981;
+}
+
+.img-action-btn.img-url:hover {
+    background: rgba(0, 102, 204, 0.3);
+    border-color: #0066cc;
+}
+
+.img-action-btn.img-reset:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+}
+
+/* Unsaved image indicator */
+.editable-image-wrapper.unsaved::after {
+    content: '●';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ff6b00;
+    font-size: 16px;
+    text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+    z-index: 5;
+}
+
+/* Image outline in edit mode */
+.admin-edit-mode .editable-image-wrapper {
+    outline: 2px dashed transparent;
+    outline-offset: 4px;
+    transition: outline-color 0.3s ease;
+}
+
+.admin-edit-mode .editable-image-wrapper:hover {
+    outline-color: rgba(0, 102, 204, 0.5);
+}
+
+.admin-edit-mode .editable-image-wrapper.unsaved {
+    outline-color: #ff6b00;
+}
+
+/* ============================================
+   RESPONSIVE IMAGE MODAL
+   ============================================ */
+@media (max-width: 768px) {
+    .admin-image-content {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .image-preview-container {
+        height: 200px;
+    }
+    
+    .admin-image-footer {
+        flex-direction: column;
+    }
+    
+    .image-edit-btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+    
+    .img-action-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ============================================
+   IMAGE TABS & ADJUSTMENTS
+   ============================================ */
+.image-tabs {
+    display: flex;
+    gap: 5px;
+    margin: 20px 0 15px;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.image-tab {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-tab:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.image-tab.active {
+    color: white;
+    background: rgba(0, 102, 204, 0.3);
+}
+
+.image-tab-content {
+    display: none;
+}
+
+.image-tab-content.active {
+    display: block;
+}
+
+.image-slider-group {
+    margin-bottom: 15px;
+}
+
+.image-slider-group label {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.slider-value {
+    color: #0066cc;
+    font-weight: 600;
+}
+
+.image-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.image-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0066cc, #0052a3);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 102, 204, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.image-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.image-slider:disabled {
+    opacity: 0.5;
+}
+
+.image-select {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.image-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #0066cc;
+}
+
+.admin-btn-reset-filters {
+    width: 100%;
+    margin-top: 15px;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.admin-btn-reset-filters:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+/* ============================================
+   ADD ELEMENT SECTION
+   ============================================ */
+.admin-add-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-add-section h4 {
+    color: white;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.add-element-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.add-element-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #9ca3af;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-element-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.add-element-btn:hover {
+    background: rgba(0, 102, 204, 0.2);
+    border-color: rgba(0, 102, 204, 0.4);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   ADD ELEMENT MODAL
+   ============================================ */
+.add-element-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10006;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.add-element-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.add-element-content {
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.add-element-modal.active .add-element-content {
+    transform: scale(1) translateY(0);
+}
+
+.add-element-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-element-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.add-element-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.add-element-close:hover {
+    color: #ff6b00;
+}
+
+.add-element-body {
+    padding: 25px;
+    overflow-y: auto;
+    max-height: calc(85vh - 160px);
+}
+
+.element-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    background: rgba(0, 102, 204, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group select option {
+    background: #1a1a2e;
+}
+
+.placement-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.placement-section h4 {
+    color: white;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.placement-hint {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+.placement-select {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.placement-select option {
+    background: #1a1a2e;
+}
+
+.placement-position {
+    display: flex;
+    gap: 20px;
+}
+
+.placement-position label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.placement-position input[type="radio"] {
+    accent-color: #0066cc;
+}
+
+.add-element-footer {
+    display: flex;
+    gap: 10px;
+    padding: 20px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-element-footer .admin-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 14px;
+}
+
+.admin-btn-add-element {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #10b981;
+    color: white;
+}
+
+.admin-btn-add-element:hover {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+}
+
+/* New image container in add modal */
+.new-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.new-image-preview {
+    max-width: 100%;
+    max-height: 150px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.new-image-upload {
+    width: 100%;
+}
+
+/* ============================================
+   ADDED ELEMENTS STYLES
+   ============================================ */
+.admin-added-element {
+    position: relative;
+    animation: elementFadeIn 0.5s ease;
+}
+
+@keyframes elementFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.element-delete-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.admin-edit-mode .admin-added-element:hover .element-delete-btn {
+    opacity: 1;
+}
+
+.element-delete-btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Added card styles */
+.admin-card {
+    padding: 30px;
+    border-radius: 16px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.admin-card-glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-card-solid {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-card-gradient {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.admin-card-gradient::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0066cc, #ff6b00);
+    z-index: -1;
+}
+
+.admin-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.admin-card h4 {
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.admin-card p {
+    color: #9ca3af;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Added image styles */
+.admin-added-image {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.admin-added-image img {
+    max-width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Added divider */
+.admin-divider {
+    opacity: 0.8;
+}
