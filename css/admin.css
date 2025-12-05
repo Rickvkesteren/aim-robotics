@@ -1528,6 +1528,58 @@
     margin: 0;
 }
 
+/* ============================================
+   DRAG MODE BUTTON
+   ============================================ */
+.admin-drag-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.admin-drag-section small {
+    display: block;
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 0.75rem;
+}
+
+.admin-btn-drag-mode {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.admin-btn-drag-mode svg {
+    width: 22px;
+    height: 22px;
+    stroke: white;
+    fill: none;
+}
+
+.admin-btn-drag-mode:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #9b6dff 0%, #7577f5 100%);
+}
+
+.admin-btn-drag-mode:active {
+    transform: translateY(0);
+}
+
 /* Added image styles */
 .admin-added-image {
     margin: 20px 0;

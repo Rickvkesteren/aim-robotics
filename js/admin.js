@@ -625,6 +625,21 @@ class LiveEditor {
                         </button>
                     </div>
                 </div>
+                
+                <div class="admin-drag-section">
+                    <button class="admin-btn-drag-mode" id="toggleDragMode">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 9l-3 3 3 3"/>
+                            <path d="M9 5l3-3 3 3"/>
+                            <path d="M15 19l-3 3-3-3"/>
+                            <path d="M19 9l3 3-3 3"/>
+                            <path d="M2 12h20"/>
+                            <path d="M12 2v20"/>
+                        </svg>
+                        <span>🎨 Drag & Drop Editor</span>
+                    </button>
+                    <small>Versleep, vergroot en pas alles aan</small>
+                </div>
             </div>
             <div class="admin-panel-actions">
                 <button class="admin-btn admin-btn-save" title="Wijzigingen opslaan">
@@ -670,6 +685,14 @@ class LiveEditor {
         // Bind add element buttons
         panel.querySelectorAll('.add-element-btn').forEach(btn => {
             btn.addEventListener('click', () => this.addElement(btn.dataset.type));
+        });
+        
+        // Bind drag mode button
+        panel.querySelector('#toggleDragMode').addEventListener('click', () => {
+            if (window.dragEditor) {
+                window.dragEditor.toggleDragMode(true);
+                this.showNotification('🎨 Drag & Drop Editor geactiveerd!', 'success');
+            }
         });
     }
     

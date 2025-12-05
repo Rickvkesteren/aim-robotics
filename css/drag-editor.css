@@ -1,0 +1,448 @@
+/**
+ * AIM-Robotics Drag Editor Styles
+ */
+
+/* ============================================
+   DRAG MODE BODY STATE
+   ============================================ */
+.drag-mode-active {
+    cursor: crosshair;
+}
+
+.drag-mode-active * {
+    user-select: none;
+}
+
+/* ============================================
+   DRAG TOOLBAR
+   ============================================ */
+.drag-toolbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100001;
+    display: flex;
+    justify-content: center;
+}
+
+.drag-toolbar-content {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 15px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 102, 204, 0.1);
+    backdrop-filter: blur(20px);
+}
+
+.drag-tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.drag-tool-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.drag-tool-btn:hover {
+    background: rgba(0, 102, 204, 0.1);
+    color: white;
+    border-color: rgba(0, 102, 204, 0.3);
+}
+
+.drag-tool-btn.active {
+    background: rgba(0, 102, 204, 0.2);
+    color: #0066cc;
+    border-color: rgba(0, 102, 204, 0.5);
+}
+
+.drag-save-btn {
+    width: auto;
+    padding: 0 15px;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.drag-save-btn:hover {
+    background: linear-gradient(135deg, #0077ed 0%, #0066cc 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+}
+
+.drag-close-btn {
+    color: #ef4444;
+}
+
+.drag-close-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.drag-tool-divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 5px;
+}
+
+/* ============================================
+   SELECTABLE ELEMENTS
+   ============================================ */
+.drag-selectable {
+    cursor: pointer;
+    transition: outline 0.2s ease;
+}
+
+.drag-mode-active .drag-selectable:hover {
+    outline: 2px dashed rgba(0, 102, 204, 0.5);
+    outline-offset: 2px;
+}
+
+.drag-selectable.drag-selected {
+    outline: 2px solid #0066cc !important;
+    outline-offset: 2px;
+}
+
+.drag-selectable.dragging {
+    opacity: 0.8;
+    z-index: 10000;
+    cursor: grabbing;
+}
+
+/* ============================================
+   SELECTION BOX & RESIZE HANDLES
+   ============================================ */
+.selection-box {
+    position: absolute;
+    pointer-events: none;
+    border: 2px solid #0066cc;
+    background: rgba(0, 102, 204, 0.05);
+    z-index: 99999;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border: 2px solid #0066cc;
+    border-radius: 2px;
+    pointer-events: auto;
+    z-index: 100000;
+}
+
+.resize-nw { top: -5px; left: -5px; cursor: nw-resize; }
+.resize-n { top: -5px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
+.resize-ne { top: -5px; right: -5px; cursor: ne-resize; }
+.resize-e { top: 50%; right: -5px; transform: translateY(-50%); cursor: e-resize; }
+.resize-se { bottom: -5px; right: -5px; cursor: se-resize; }
+.resize-s { bottom: -5px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
+.resize-sw { bottom: -5px; left: -5px; cursor: sw-resize; }
+.resize-w { top: 50%; left: -5px; transform: translateY(-50%); cursor: w-resize; }
+
+/* ============================================
+   PROPERTY PANEL
+   ============================================ */
+.property-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 280px;
+    max-height: calc(100vh - 100px);
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 15px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(0, 102, 204, 0.1);
+    backdrop-filter: blur(20px);
+    z-index: 100000;
+    overflow: hidden;
+}
+
+.property-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(0, 102, 204, 0.1), transparent);
+}
+
+.property-title {
+    font-weight: 600;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.property-close {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.property-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.property-panel-body {
+    padding: 15px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+.property-panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.property-panel-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.property-panel-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 102, 204, 0.3);
+    border-radius: 3px;
+}
+
+.property-section {
+    margin-bottom: 20px;
+}
+
+.property-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.property-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.property-item.full {
+    grid-column: 1 / -1;
+}
+
+.property-item label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.property-input,
+.property-select {
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.property-input:focus,
+.property-select:focus {
+    outline: none;
+    border-color: rgba(0, 102, 204, 0.5);
+    background: rgba(0, 102, 204, 0.1);
+}
+
+.property-select {
+    cursor: pointer;
+}
+
+.property-select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+.property-color {
+    width: 100%;
+    height: 35px;
+    padding: 2px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.property-color::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.property-color::-webkit-color-swatch {
+    border-radius: 4px;
+    border: none;
+}
+
+.property-range {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: 8px;
+}
+
+.property-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #0066cc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.property-range::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* ============================================
+   CONTEXT MENU
+   ============================================ */
+.drag-context-menu {
+    position: fixed;
+    min-width: 180px;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    z-index: 100002;
+    padding: 8px 0;
+    overflow: hidden;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    color: #d1d5db;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.context-menu-item svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.context-menu-item:hover {
+    background: rgba(0, 102, 204, 0.1);
+    color: white;
+}
+
+.context-menu-item.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.context-menu-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+}
+
+/* ============================================
+   NOTIFICATION
+   ============================================ */
+.drag-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+    z-index: 100003;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.drag-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .drag-toolbar {
+        top: auto;
+        bottom: 20px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+    }
+    
+    .drag-toolbar-content {
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    
+    .property-panel {
+        top: auto;
+        bottom: 90px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        max-height: 50vh;
+    }
+}
