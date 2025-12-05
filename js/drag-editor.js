@@ -1015,7 +1015,12 @@ class DragEditor {
         localStorage.setItem('aim_drag_styles', JSON.stringify(styles));
         
         // Show save notification
-        this.showNotification('✅ Layout opgeslagen!');
+        this.showNotification('✅ Layout opgeslagen! Pagina wordt ververst...');
+        
+        // Refresh page after short delay
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
     }
     
     // Load saved styles

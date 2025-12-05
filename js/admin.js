@@ -1162,7 +1162,12 @@ class LiveEditor {
         // Remove unsaved indicators
         document.querySelectorAll('.unsaved').forEach(el => el.classList.remove('unsaved'));
         
-        this.showNotification(`✅ ${textChanges + imgChanges} wijzigingen opgeslagen!`, 'success');
+        this.showNotification(`✅ ${textChanges + imgChanges} wijzigingen opgeslagen! Pagina wordt ververst...`, 'success');
+        
+        // Refresh page after short delay to show notification
+        setTimeout(() => {
+            window.location.reload();
+        }, 1500);
     }
     
     // Load saved content from localStorage
