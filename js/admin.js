@@ -658,6 +658,16 @@ class LiveEditor {
                     </svg>
                     <span>Publiceren</span>
                 </button>
+                <button class="admin-btn admin-btn-share" title="Deel HTML bestand">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    <span>Delen</span>
+                </button>
                 <button class="admin-btn admin-btn-reset" title="Alle wijzigingen ongedaan maken">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
@@ -687,6 +697,7 @@ class LiveEditor {
         // Bind button events
         panel.querySelector('.admin-btn-save').addEventListener('click', () => this.saveChanges());
         panel.querySelector('.admin-btn-publish').addEventListener('click', () => this.publishToGitHub());
+        panel.querySelector('.admin-btn-share').addEventListener('click', () => this.shareHTML());
         panel.querySelector('.admin-btn-reset').addEventListener('click', () => this.resetChanges());
         panel.querySelector('.admin-btn-export').addEventListener('click', () => this.exportChanges());
         panel.querySelector('.admin-btn-close').addEventListener('click', () => this.toggleEditMode());
@@ -1301,6 +1312,79 @@ class LiveEditor {
         URL.revokeObjectURL(url);
         
         this.showNotification('📥 Wijzigingen geëxporteerd!', 'success');
+    }
+    
+    // Share HTML - creates a complete shareable HTML file
+    shareHTML() {
+        // First save changes
+        this.saveChangesWithoutRefresh();
+        
+        // Get clean HTML without editor elements
+        const html = this.generateCleanHTML();
+        
+        // Download with friendly name
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const date = new Date().toISOString().split('T')[0];
+        a.download = `AIM-Robotics-Website-${date}.html`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        // Show share modal
+        this.showShareModal();
+    }
+    
+    // Show share modal with instructions
+    showShareModal() {
+        const existing = document.querySelector('.publish-modal');
+        if (existing) existing.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'publish-modal';
+        modal.innerHTML = `
+            <div class="publish-modal-content" style="max-width: 480px;">
+                <div class="publish-modal-header">
+                    <h3>📤 Website Delen</h3>
+                    <button class="publish-modal-close">&times;</button>
+                </div>
+                <div class="publish-modal-body">
+                    <div class="publish-success">
+                        <div class="publish-icon">✅</div>
+                        <p><strong>HTML bestand gedownload!</strong></p>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; color: rgba(255,255,255,0.8); line-height: 1.6;">
+                        <p style="margin-bottom: 1rem;"><strong>Dit bestand kun je delen via:</strong></p>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                📧 <strong>E-mail</strong> - Stuur als bijlage
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                💬 <strong>Teams/Slack</strong> - Upload in chat
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                ☁️ <strong>OneDrive/Dropbox</strong> - Deel via link
+                            </li>
+                            <li style="padding: 8px 0;">
+                                💾 <strong>USB stick</strong> - Kopieer het bestand
+                            </li>
+                        </ul>
+                        
+                        <p style="margin-top: 1.5rem; padding: 12px; background: rgba(6,182,212,0.1); border-radius: 8px; font-size: 0.9rem;">
+                            💡 <strong>Tip:</strong> De ontvanger kan het bestand gewoon openen in een browser om de website te bekijken!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        modal.querySelector('.publish-modal-close').addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        requestAnimationFrame(() => modal.classList.add('active'));
     }
     
     // Publish to GitHub - exports complete HTML

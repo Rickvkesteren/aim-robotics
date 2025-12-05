@@ -1610,6 +1610,19 @@
 }
 
 /* ============================================
+   SHARE BUTTON
+   ============================================ */
+.admin-btn-share {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+    border-color: #8b5cf6 !important;
+}
+
+.admin-btn-share:hover {
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%) !important;
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3) !important;
+}
+
+/* ============================================
    PUBLISH MODAL
    ============================================ */
 .publish-modal {
