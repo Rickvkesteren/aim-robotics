@@ -1383,12 +1383,14 @@ class LiveEditor {
     }
     
     // Share HTML - creates a complete shareable HTML file
-    shareHTML() {
+    async shareHTML() {
         // First save changes
         this.saveChangesWithoutRefresh();
         
-        // Get clean HTML without editor elements
-        const html = this.generateCleanHTML();
+        this.showNotification('📦 Standalone HTML wordt gegenereerd...', 'info');
+        
+        // Get standalone HTML with inlined CSS/JS
+        const html = await this.generateStandaloneHTML();
         
         // Download with friendly name
         const blob = new Blob([html], { type: 'text/html' });
@@ -1740,7 +1742,11 @@ class LiveEditor {
             '.image-edit-overlay',
             '.image-edit-badge',
             '.editable-image-wrapper > .image-edit-overlay',
-            '.editable-image-wrapper > .image-edit-badge'
+            '.editable-image-wrapper > .image-edit-badge',
+            '.publish-modal',
+            'script[src*="admin.js"]',
+            'script[src*="drag-editor.js"]',
+            'link[href*="admin.css"]'
         ];
         
         removeSelectors.forEach(selector => {
@@ -1768,7 +1774,101 @@ class LiveEditor {
         // Remove admin-edit-mode class from body
         clone.body.classList.remove('admin-edit-mode', 'drag-mode-active');
         
+        // Remove data attributes used by editor
+        clone.querySelectorAll('[data-image-edit-id]').forEach(el => {
+            el.removeAttribute('data-image-edit-id');
+        });
+        clone.querySelectorAll('[data-original-src]').forEach(el => {
+            el.removeAttribute('data-original-src');
+        });
+        
         // Get the HTML
+        return '<!DOCTYPE html>\n' + clone.documentElement.outerHTML;
+    }
+    
+    // Generate standalone HTML with all CSS inlined
+    async generateStandaloneHTML() {
+        const clone = document.cloneNode(true);
+        
+        // Remove all editor-related elements
+        const removeSelectors = [
+            '.admin-panel',
+            '.admin-toggle',
+            '.admin-login-modal',
+            '.admin-image-modal',
+            '.admin-notification',
+            '.add-element-modal',
+            '.drag-toolbar',
+            '.property-panel',
+            '.drag-context-menu',
+            '.selection-box',
+            '.image-edit-overlay',
+            '.image-edit-badge',
+            '.editable-image-wrapper > .image-edit-overlay',
+            '.editable-image-wrapper > .image-edit-badge',
+            '.publish-modal',
+            'script[src*="admin.js"]',
+            'script[src*="drag-editor.js"]',
+            'link[href*="admin.css"]'
+        ];
+        
+        removeSelectors.forEach(selector => {
+            clone.querySelectorAll(selector).forEach(el => el.remove());
+        });
+        
+        // Remove editor classes and attributes
+        clone.querySelectorAll('.editable').forEach(el => {
+            el.classList.remove('editable', 'unsaved');
+            el.removeAttribute('contenteditable');
+        });
+        clone.querySelectorAll('.drag-selectable').forEach(el => {
+            el.classList.remove('drag-selectable', 'drag-selected');
+        });
+        clone.querySelectorAll('.editable-image-wrapper').forEach(wrapper => {
+            const img = wrapper.querySelector('img');
+            if (img) {
+                wrapper.parentNode.insertBefore(img, wrapper);
+                wrapper.remove();
+            }
+        });
+        clone.body.classList.remove('admin-edit-mode', 'drag-mode-active');
+        clone.querySelectorAll('[data-image-edit-id]').forEach(el => el.removeAttribute('data-image-edit-id'));
+        clone.querySelectorAll('[data-original-src]').forEach(el => el.removeAttribute('data-original-src'));
+        
+        // Inline main.css
+        try {
+            const mainCssLink = clone.querySelector('link[href*="main.css"]');
+            if (mainCssLink) {
+                const response = await fetch('css/main.css');
+                if (response.ok) {
+                    const cssText = await response.text();
+                    const styleEl = clone.createElement('style');
+                    styleEl.textContent = cssText;
+                    mainCssLink.parentNode.insertBefore(styleEl, mainCssLink);
+                    mainCssLink.remove();
+                }
+            }
+        } catch (e) {
+            console.log('Could not inline CSS:', e);
+        }
+        
+        // Inline main.js
+        try {
+            const mainJsScript = clone.querySelector('script[src*="main.js"]');
+            if (mainJsScript) {
+                const response = await fetch('js/main.js');
+                if (response.ok) {
+                    const jsText = await response.text();
+                    const scriptEl = clone.createElement('script');
+                    scriptEl.textContent = jsText;
+                    mainJsScript.parentNode.insertBefore(scriptEl, mainJsScript);
+                    mainJsScript.remove();
+                }
+            }
+        } catch (e) {
+            console.log('Could not inline JS:', e);
+        }
+        
         return '<!DOCTYPE html>\n' + clone.documentElement.outerHTML;
     }
     
