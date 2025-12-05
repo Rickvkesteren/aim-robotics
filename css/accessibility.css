@@ -1,0 +1,372 @@
+/* ==========================================================================
+   WCAG 2.1 AA Accessibility Styles
+   ========================================================================== */
+
+/* Skip Navigation Link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10000;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid #FF6B35;
+    outline-offset: 2px;
+}
+
+/* Screen Reader Only Text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus Visible Styles - High Contrast */
+*:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Improved Focus Styles for Interactive Elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 2px;
+}
+
+/* Navigation Focus Styles */
+.nav-link:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 4px;
+    background: rgba(255, 107, 53, 0.1);
+}
+
+/* Button Focus Styles with Better Contrast */
+.btn:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.2);
+}
+
+/* Placeholder Contrast - WCAG AA (4.5:1) */
+input::placeholder,
+textarea::placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #757575 !important;
+    opacity: 1 !important;
+}
+
+/* Select dropdown placeholder option styling */
+select {
+    color: #1a1a1a !important;
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+}
+
+select option {
+    color: #1a1a1a !important;
+    background-color: #ffffff !important;
+    padding: 8px 12px;
+}
+
+select option[value=""] {
+    color: #757575 !important;
+}
+
+select option:not([value=""]) {
+    color: #1a1a1a !important;
+    font-weight: 500;
+}
+
+/* For browsers that support :invalid pseudo-class on select with required */
+select:invalid {
+    color: #757575 !important;
+}
+
+select:valid {
+    color: #1a1a1a !important;
+}
+
+/* Select focus state */
+select:focus {
+    outline: 3px solid #0066CC !important;
+    outline-offset: 2px !important;
+    border-color: #0066CC !important;
+}
+
+/* Select hover state */
+select:hover {
+    border-color: #64748b !important;
+}
+
+/* Form Error Messages */
+.error-message {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    min-height: 1.2em;
+}
+
+.form-group.has-error input,
+.form-group.has-error textarea,
+.form-group.has-error select {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+}
+
+.form-group.has-error label {
+    color: #dc3545;
+}
+
+/* Required Field Indicator */
+abbr[title] {
+    text-decoration: none;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Ensure High Contrast for Text */
+body {
+    color: #1a1a1a;
+    background: #ffffff;
+}
+
+/* Link Contrast */
+a {
+    color: #0066cc;
+    text-decoration-skip-ink: auto;
+}
+
+a:hover,
+a:focus {
+    color: #004499;
+}
+
+/* Ensure Loading Screen is Accessible */
+.loader[role="status"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hamburger Button Accessibility */
+.hamburger {
+    background: transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.hamburger:hover {
+    background: rgba(255, 107, 53, 0.1);
+}
+
+.hamburger:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 2px;
+    border-color: #FF6B35;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Back to Top Button */
+.back-to-top:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 4px;
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Improved Contrast for Disabled States */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #e9ecef;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    * {
+        border-width: 2px;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .nav-link {
+        border-bottom: 2px solid transparent;
+    }
+    
+    .nav-link:hover,
+    .nav-link:focus {
+        border-bottom-color: currentColor;
+    }
+}
+
+/* Reduced Motion for Users with Vestibular Disorders */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .hero-video {
+        animation: none !important;
+    }
+    
+    .loader-bar {
+        animation: none !important;
+    }
+}
+
+/* Print Styles for Accessibility */
+@media print {
+    .skip-link,
+    .hamburger,
+    .back-to-top,
+    .hero-video,
+    .loader {
+        display: none !important;
+    }
+    
+    a[href]::after {
+        content: " (" attr(href) ")";
+    }
+    
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}
+
+/* Touch Target Size - WCAG 2.5.5 */
+@media (pointer: coarse) {
+    a,
+    button,
+    input,
+    textarea,
+    select {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link {
+        padding: 12px 20px;
+    }
+    
+    .btn {
+        padding: 14px 28px;
+    }
+}
+
+/* Dark Mode Support with Proper Contrast */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a1a;
+        color: #f5f5f5;
+    }
+    
+    a {
+        color: #66b3ff;
+    }
+    
+    a:hover,
+    a:focus {
+        color: #99ccff;
+    }
+    
+    .error-message {
+        color: #ff6b6b;
+    }
+    
+    .form-group.has-error input,
+    .form-group.has-error textarea,
+    .form-group.has-error select {
+        background-color: #2d1f1f;
+        border-color: #ff6b6b;
+    }
+    
+    input,
+    textarea,
+    select {
+        background: #2a2a2a;
+        color: #f5f5f5;
+        border-color: #444;
+    }
+}
+
+/* Language Direction Support */
+[dir="rtl"] .skip-link {
+    left: auto;
+    right: 0;
+    border-radius: 0 0 0 4px;
+}
+
+/* Keyboard Navigation Indicator */
+body.user-is-tabbing *:focus {
+    outline: 3px solid #FF6B35 !important;
+    outline-offset: 2px !important;
+}
