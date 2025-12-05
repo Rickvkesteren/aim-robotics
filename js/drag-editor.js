@@ -249,6 +249,62 @@ class DragEditor {
                 </div>
                 
                 <div class="property-section">
+                    <div class="property-section-title">Afbeelding</div>
+                    <div class="property-grid" id="image-properties" style="display: none;">
+                        <div class="property-item">
+                            <label>Passend</label>
+                            <select id="prop-object-fit" class="property-select">
+                                <option value="cover">Vullen (Cover)</option>
+                                <option value="contain">Passend (Contain)</option>
+                                <option value="fill">Uitrekken (Fill)</option>
+                                <option value="none">Origineel</option>
+                                <option value="scale-down">Schaal Omlaag</option>
+                            </select>
+                        </div>
+                        <div class="property-item">
+                            <label>Positie H</label>
+                            <select id="prop-object-pos-x" class="property-select">
+                                <option value="left">Links</option>
+                                <option value="center">Midden</option>
+                                <option value="right">Rechts</option>
+                            </select>
+                        </div>
+                        <div class="property-item">
+                            <label>Positie V</label>
+                            <select id="prop-object-pos-y" class="property-select">
+                                <option value="top">Boven</option>
+                                <option value="center">Midden</option>
+                                <option value="bottom">Onder</option>
+                            </select>
+                        </div>
+                        <div class="property-item">
+                            <label>Container</label>
+                            <select id="prop-img-align" class="property-select">
+                                <option value="none">Geen</option>
+                                <option value="left">Links uitlijnen</option>
+                                <option value="center">Centreren</option>
+                                <option value="right">Rechts uitlijnen</option>
+                            </select>
+                        </div>
+                        <div class="property-item">
+                            <label>Aspect Ratio</label>
+                            <select id="prop-aspect-ratio" class="property-select">
+                                <option value="auto">Automatisch</option>
+                                <option value="1/1">1:1 Vierkant</option>
+                                <option value="4/3">4:3</option>
+                                <option value="16/9">16:9 Breed</option>
+                                <option value="3/2">3:2</option>
+                                <option value="2/3">2:3 Portret</option>
+                            </select>
+                        </div>
+                        <div class="property-item">
+                            <label>Max Breedte</label>
+                            <input type="text" id="prop-max-width" class="property-input" placeholder="100%">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="property-section">
                     <div class="property-section-title">Effecten</div>
                     <div class="property-grid">
                         <div class="property-item full">
@@ -339,6 +395,68 @@ class DragEditor {
             if (this.selectedElement) {
                 this.selectedElement.style.textAlign = e.target.value;
                 this.saveState();
+            }
+        });
+        
+        // Image properties
+        panel.querySelector('#prop-object-fit').addEventListener('change', (e) => {
+            this.updateImageProperties();
+        });
+        
+        panel.querySelector('#prop-object-pos-x').addEventListener('change', (e) => {
+            this.updateImageProperties();
+        });
+        
+        panel.querySelector('#prop-object-pos-y').addEventListener('change', (e) => {
+            this.updateImageProperties();
+        });
+        
+        panel.querySelector('#prop-img-align').addEventListener('change', (e) => {
+            if (this.selectedElement) {
+                const img = this.selectedElement.tagName === 'IMG' ? this.selectedElement : this.selectedElement.querySelector('img');
+                if (img) {
+                    const parent = img.parentElement;
+                    const align = e.target.value;
+                    
+                    if (align === 'center') {
+                        img.style.display = 'block';
+                        img.style.marginLeft = 'auto';
+                        img.style.marginRight = 'auto';
+                    } else if (align === 'left') {
+                        img.style.display = 'block';
+                        img.style.marginLeft = '0';
+                        img.style.marginRight = 'auto';
+                    } else if (align === 'right') {
+                        img.style.display = 'block';
+                        img.style.marginLeft = 'auto';
+                        img.style.marginRight = '0';
+                    } else {
+                        img.style.display = '';
+                        img.style.marginLeft = '';
+                        img.style.marginRight = '';
+                    }
+                    this.saveState();
+                }
+            }
+        });
+        
+        panel.querySelector('#prop-aspect-ratio').addEventListener('change', (e) => {
+            if (this.selectedElement) {
+                const img = this.selectedElement.tagName === 'IMG' ? this.selectedElement : this.selectedElement.querySelector('img');
+                if (img) {
+                    img.style.aspectRatio = e.target.value;
+                    this.saveState();
+                }
+            }
+        });
+        
+        panel.querySelector('#prop-max-width').addEventListener('input', (e) => {
+            if (this.selectedElement) {
+                const img = this.selectedElement.tagName === 'IMG' ? this.selectedElement : this.selectedElement.querySelector('img');
+                if (img) {
+                    img.style.maxWidth = e.target.value;
+                    this.saveState();
+                }
             }
         });
         
@@ -438,6 +556,23 @@ class DragEditor {
         const scale = this.propertyPanel.querySelector('#prop-scale').value / 100;
         
         this.selectedElement.style.transform = `rotate(${rotate}deg) scale(${scale})`;
+        this.saveState();
+    }
+    
+    // Update image properties
+    updateImageProperties() {
+        if (!this.selectedElement) return;
+        
+        const img = this.selectedElement.tagName === 'IMG' ? this.selectedElement : this.selectedElement.querySelector('img');
+        if (!img) return;
+        
+        const objectFit = this.propertyPanel.querySelector('#prop-object-fit').value;
+        const posX = this.propertyPanel.querySelector('#prop-object-pos-x').value;
+        const posY = this.propertyPanel.querySelector('#prop-object-pos-y').value;
+        
+        img.style.objectFit = objectFit;
+        img.style.objectPosition = `${posX} ${posY}`;
+        
         this.saveState();
     }
     
@@ -812,6 +947,40 @@ class DragEditor {
         panel.querySelector('#prop-border-color').value = this.rgbToHex(computed.borderColor);
         panel.querySelector('#prop-border-style').value = computed.borderStyle;
         panel.querySelector('#prop-border-radius').value = computed.borderRadius;
+        
+        // Image properties - show/hide based on element type
+        const imagePropsSection = panel.querySelector('#image-properties');
+        const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+        
+        if (img) {
+            imagePropsSection.style.display = 'grid';
+            const imgComputed = window.getComputedStyle(img);
+            
+            panel.querySelector('#prop-object-fit').value = imgComputed.objectFit || 'cover';
+            
+            const objPos = imgComputed.objectPosition || 'center center';
+            const [posX, posY] = objPos.split(' ');
+            panel.querySelector('#prop-object-pos-x').value = posX.includes('left') ? 'left' : posX.includes('right') ? 'right' : 'center';
+            panel.querySelector('#prop-object-pos-y').value = posY && posY.includes('top') ? 'top' : posY && posY.includes('bottom') ? 'bottom' : 'center';
+            
+            // Container alignment
+            const marginL = imgComputed.marginLeft;
+            const marginR = imgComputed.marginRight;
+            if (marginL === 'auto' && marginR === 'auto') {
+                panel.querySelector('#prop-img-align').value = 'center';
+            } else if (marginL === 'auto') {
+                panel.querySelector('#prop-img-align').value = 'right';
+            } else if (marginR === 'auto') {
+                panel.querySelector('#prop-img-align').value = 'left';
+            } else {
+                panel.querySelector('#prop-img-align').value = 'none';
+            }
+            
+            panel.querySelector('#prop-aspect-ratio').value = img.style.aspectRatio || 'auto';
+            panel.querySelector('#prop-max-width').value = img.style.maxWidth || '';
+        } else {
+            imagePropsSection.style.display = 'none';
+        }
     }
     
     // Convert RGB to HEX

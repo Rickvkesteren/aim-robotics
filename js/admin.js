@@ -626,6 +626,69 @@ class LiveEditor {
                     </div>
                 </div>
                 
+                <div class="admin-section-title">📦 Custom Blokken</div>
+                <div class="admin-blocks-grid">
+                    <button class="add-block-btn" data-block="hero" title="Hero sectie">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        <span>Hero</span>
+                    </button>
+                    <button class="add-block-btn" data-block="cta" title="Call-to-Action">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        <span>CTA</span>
+                    </button>
+                    <button class="add-block-btn" data-block="features" title="Features Grid">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        <span>Features</span>
+                    </button>
+                    <button class="add-block-btn" data-block="testimonial" title="Testimonial">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <span>Quote</span>
+                    </button>
+                    <button class="add-block-btn" data-block="stats" title="Statistieken">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        <span>Stats</span>
+                    </button>
+                    <button class="add-block-btn" data-block="contact" title="Contact formulier">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>Contact</span>
+                    </button>
+                    <button class="add-block-btn" data-block="gallery" title="Afbeeldingen gallerij">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21,15 16,10 5,21"/>
+                        </svg>
+                        <span>Gallerij</span>
+                    </button>
+                    <button class="add-block-btn" data-block="video" title="Video sectie">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
+                        <span>Video</span>
+                    </button>
+                </div>
+                
                 <div class="admin-drag-section">
                     <button class="admin-btn-drag-mode" id="toggleDragMode">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -705,6 +768,11 @@ class LiveEditor {
         // Bind add element buttons
         panel.querySelectorAll('.add-element-btn').forEach(btn => {
             btn.addEventListener('click', () => this.addElement(btn.dataset.type));
+        });
+        
+        // Bind add block buttons
+        panel.querySelectorAll('.add-block-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.addBlock(btn.dataset.block));
         });
         
         // Bind drag mode button
@@ -1889,6 +1957,399 @@ git push</code>
         
         // Show element placement modal
         this.showAddElementModal(type);
+    }
+    
+    // Add custom block
+    addBlock(blockType) {
+        if (!this.isEditMode) {
+            this.showNotification('❌ Schakel eerst de edit modus in', 'error');
+            return;
+        }
+        
+        this.showAddBlockModal(blockType);
+    }
+    
+    // Show modal to configure and place custom block
+    showAddBlockModal(blockType) {
+        document.querySelector('.add-element-modal')?.remove();
+        
+        const blockNames = {
+            hero: 'Hero Sectie',
+            cta: 'Call-to-Action',
+            features: 'Features Grid',
+            testimonial: 'Testimonial / Quote',
+            stats: 'Statistieken',
+            contact: 'Contact Formulier',
+            gallery: 'Afbeeldingen Gallerij',
+            video: 'Video Sectie'
+        };
+        
+        const modal = document.createElement('div');
+        modal.className = 'add-element-modal active';
+        
+        modal.innerHTML = `
+            <div class="add-element-content" style="max-width: 600px;">
+                <div class="add-element-header">
+                    <h3>📦 ${blockNames[blockType]} Toevoegen</h3>
+                    <button class="add-element-close">&times;</button>
+                </div>
+                <div class="add-element-body">
+                    ${this.getBlockForm(blockType)}
+                    
+                    <div class="placement-section">
+                        <h4>Plaatsing</h4>
+                        <select class="placement-select" id="placementSection">
+                            <option value="">-- Selecteer waar het blok komt --</option>
+                            <option value="after:.hero">Na Hero</option>
+                            <option value="after:#diensten">Na Diensten</option>
+                            <option value="after:#projecten">Na Projecten</option>
+                            <option value="after:#industrieen">Na Industrieën</option>
+                            <option value="after:#over-ons">Na Over Ons</option>
+                            <option value="before:#contact">Voor Contact</option>
+                            <option value="before:.footer">Voor Footer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="add-element-footer">
+                    <button class="admin-btn admin-btn-cancel">Annuleren</button>
+                    <button class="admin-btn admin-btn-add-element" id="addBlockBtn">Blok Toevoegen</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close handlers
+        modal.querySelector('.add-element-close').addEventListener('click', () => modal.remove());
+        modal.querySelector('.admin-btn-cancel').addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        // Add block handler
+        modal.querySelector('#addBlockBtn').addEventListener('click', () => {
+            const placement = modal.querySelector('#placementSection').value;
+            if (!placement) {
+                this.showNotification('❌ Selecteer een plaatsing', 'error');
+                return;
+            }
+            
+            const blockHTML = this.generateBlockHTML(blockType, modal);
+            const [position, selector] = placement.split(':');
+            const targetEl = document.querySelector(selector);
+            
+            if (targetEl) {
+                const newSection = document.createElement('div');
+                newSection.innerHTML = blockHTML;
+                const sectionEl = newSection.firstElementChild;
+                
+                if (position === 'after') {
+                    targetEl.after(sectionEl);
+                } else {
+                    targetEl.before(sectionEl);
+                }
+                
+                // Make it editable
+                sectionEl.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, li').forEach(el => {
+                    if (!el.closest('nav') && !el.closest('.admin-panel')) {
+                        el.classList.add('editable');
+                        el.contentEditable = true;
+                    }
+                });
+                
+                this.showNotification(`✅ ${blockNames[blockType]} toegevoegd!`, 'success');
+                modal.remove();
+                
+                // Scroll to new section
+                sectionEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+    
+    // Get block configuration form
+    getBlockForm(blockType) {
+        switch(blockType) {
+            case 'hero':
+                return `
+                    <div class="form-group">
+                        <label>Titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Jouw Headline Hier" placeholder="Hoofdtitel">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitel</label>
+                        <input type="text" id="block-subtitle" class="admin-input" value="Beschrijving van je dienst of product" placeholder="Subtitel">
+                    </div>
+                    <div class="form-group">
+                        <label>Knop tekst</label>
+                        <input type="text" id="block-btn" class="admin-input" value="Meer informatie" placeholder="Knop tekst">
+                    </div>
+                    <div class="form-group">
+                        <label>Achtergrond</label>
+                        <select id="block-bg" class="admin-input">
+                            <option value="gradient">Gradient (donker)</option>
+                            <option value="light">Licht</option>
+                            <option value="primary">Primair blauw</option>
+                        </select>
+                    </div>
+                `;
+            
+            case 'cta':
+                return `
+                    <div class="form-group">
+                        <label>Titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Klaar om te beginnen?" placeholder="CTA titel">
+                    </div>
+                    <div class="form-group">
+                        <label>Beschrijving</label>
+                        <input type="text" id="block-subtitle" class="admin-input" value="Neem vandaag nog contact op" placeholder="Beschrijving">
+                    </div>
+                    <div class="form-group">
+                        <label>Knop tekst</label>
+                        <input type="text" id="block-btn" class="admin-input" value="Contact opnemen" placeholder="Knop tekst">
+                    </div>
+                `;
+            
+            case 'features':
+                return `
+                    <div class="form-group">
+                        <label>Aantal features</label>
+                        <select id="block-count" class="admin-input">
+                            <option value="3">3 features</option>
+                            <option value="4">4 features</option>
+                            <option value="6">6 features</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sectie titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Onze Voordelen" placeholder="Sectie titel">
+                    </div>
+                `;
+            
+            case 'testimonial':
+                return `
+                    <div class="form-group">
+                        <label>Quote tekst</label>
+                        <textarea id="block-quote" class="admin-input" rows="3" placeholder="Quote tekst">Uitstekende service en kwaliteit. Aanrader!</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Naam</label>
+                        <input type="text" id="block-name" class="admin-input" value="Jan de Vries" placeholder="Naam">
+                    </div>
+                    <div class="form-group">
+                        <label>Functie / Bedrijf</label>
+                        <input type="text" id="block-role" class="admin-input" value="Directeur, Bedrijf B.V." placeholder="Functie">
+                    </div>
+                `;
+            
+            case 'stats':
+                return `
+                    <div class="form-group">
+                        <label>Statistieken (komma gescheiden)</label>
+                        <input type="text" id="block-stats" class="admin-input" value="50+,10+,100%" placeholder="bijv: 50+,10+,99%">
+                    </div>
+                    <div class="form-group">
+                        <label>Labels (komma gescheiden)</label>
+                        <input type="text" id="block-labels" class="admin-input" value="Projecten,Jaar ervaring,Klanttevredenheid" placeholder="Labels">
+                    </div>
+                `;
+            
+            case 'contact':
+                return `
+                    <div class="form-group">
+                        <label>Titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Neem contact op" placeholder="Titel">
+                    </div>
+                    <div class="form-group">
+                        <label>Stijl</label>
+                        <select id="block-style" class="admin-input">
+                            <option value="simple">Simpel</option>
+                            <option value="full">Met contactgegevens</option>
+                        </select>
+                    </div>
+                `;
+            
+            case 'gallery':
+                return `
+                    <div class="form-group">
+                        <label>Titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Onze Projecten" placeholder="Gallerij titel">
+                    </div>
+                    <div class="form-group">
+                        <label>Aantal placeholders</label>
+                        <select id="block-count" class="admin-input">
+                            <option value="4">4 afbeeldingen</option>
+                            <option value="6">6 afbeeldingen</option>
+                            <option value="8">8 afbeeldingen</option>
+                        </select>
+                    </div>
+                `;
+            
+            case 'video':
+                return `
+                    <div class="form-group">
+                        <label>Video URL (YouTube embed)</label>
+                        <input type="text" id="block-video" class="admin-input" placeholder="https://www.youtube.com/embed/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Titel</label>
+                        <input type="text" id="block-title" class="admin-input" value="Bekijk onze video" placeholder="Titel boven video">
+                    </div>
+                `;
+            
+            default:
+                return '<p>Configuratie niet beschikbaar</p>';
+        }
+    }
+    
+    // Generate block HTML
+    generateBlockHTML(blockType, modal) {
+        const getValue = (id) => modal.querySelector(`#${id}`)?.value || '';
+        
+        switch(blockType) {
+            case 'hero':
+                const heroBg = getValue('block-bg');
+                const bgClass = heroBg === 'light' ? 'bg-light' : heroBg === 'primary' ? 'bg-primary' : 'bg-gradient-dark';
+                return `
+                    <section class="section custom-hero ${bgClass}" style="padding: 100px 0; text-align: center;">
+                        <div class="container">
+                            <h2 style="font-size: 3rem; margin-bottom: 1rem; color: ${heroBg === 'light' ? 'var(--text-dark)' : 'white'};">${getValue('block-title')}</h2>
+                            <p style="font-size: 1.25rem; margin-bottom: 2rem; color: ${heroBg === 'light' ? 'var(--text-body)' : 'rgba(255,255,255,0.8)'};">${getValue('block-subtitle')}</p>
+                            <a href="#contact" class="btn btn-primary">${getValue('block-btn')}</a>
+                        </div>
+                    </section>
+                `;
+            
+            case 'cta':
+                return `
+                    <section class="section custom-cta" style="padding: 80px 0; background: var(--gradient-primary); text-align: center;">
+                        <div class="container">
+                            <h2 style="font-size: 2.5rem; color: white; margin-bottom: 1rem;">${getValue('block-title')}</h2>
+                            <p style="font-size: 1.125rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">${getValue('block-subtitle')}</p>
+                            <a href="#contact" class="btn" style="background: white; color: var(--primary); padding: 16px 32px; border-radius: 8px; font-weight: 600;">${getValue('block-btn')}</a>
+                        </div>
+                    </section>
+                `;
+            
+            case 'features':
+                const featCount = parseInt(getValue('block-count')) || 3;
+                let featItems = '';
+                for (let i = 0; i < featCount; i++) {
+                    featItems += `
+                        <div class="feature-item" style="background: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-md); text-align: center;">
+                            <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 12px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                                <span style="color: white; font-size: 1.5rem;">✓</span>
+                            </div>
+                            <h4 style="margin-bottom: 0.5rem;">Feature ${i + 1}</h4>
+                            <p style="color: var(--text-muted);">Beschrijving van deze feature</p>
+                        </div>
+                    `;
+                }
+                return `
+                    <section class="section custom-features" style="padding: 80px 0; background: var(--bg-light);">
+                        <div class="container">
+                            <h2 style="text-align: center; margin-bottom: 3rem;">${getValue('block-title')}</h2>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                                ${featItems}
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            case 'testimonial':
+                return `
+                    <section class="section custom-testimonial" style="padding: 80px 0; background: var(--bg-light);">
+                        <div class="container" style="max-width: 800px;">
+                            <blockquote style="text-align: center;">
+                                <p style="font-size: 1.5rem; font-style: italic; color: var(--text-body); margin-bottom: 1.5rem; line-height: 1.6;">"${getValue('block-quote')}"</p>
+                                <footer style="color: var(--text-muted);">
+                                    <strong style="color: var(--text-dark);">${getValue('block-name')}</strong><br>
+                                    ${getValue('block-role')}
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </section>
+                `;
+            
+            case 'stats':
+                const stats = getValue('block-stats').split(',');
+                const labels = getValue('block-labels').split(',');
+                let statItems = '';
+                stats.forEach((stat, i) => {
+                    statItems += `
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">${stat.trim()}</div>
+                            <div style="color: var(--text-muted);">${labels[i]?.trim() || ''}</div>
+                        </div>
+                    `;
+                });
+                return `
+                    <section class="section custom-stats" style="padding: 60px 0; background: white;">
+                        <div class="container">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+                                ${statItems}
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            case 'contact':
+                return `
+                    <section class="section custom-contact" style="padding: 80px 0;">
+                        <div class="container" style="max-width: 600px;">
+                            <h2 style="text-align: center; margin-bottom: 2rem;">${getValue('block-title')}</h2>
+                            <form style="background: white; padding: 40px; border-radius: 16px; box-shadow: var(--shadow-lg);">
+                                <div style="margin-bottom: 1rem;">
+                                    <input type="text" placeholder="Je naam" style="width: 100%; padding: 14px; border: 2px solid var(--border-light); border-radius: 8px;">
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <input type="email" placeholder="Je e-mail" style="width: 100%; padding: 14px; border: 2px solid var(--border-light); border-radius: 8px;">
+                                </div>
+                                <div style="margin-bottom: 1rem;">
+                                    <textarea placeholder="Je bericht" rows="4" style="width: 100%; padding: 14px; border: 2px solid var(--border-light); border-radius: 8px;"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Versturen</button>
+                            </form>
+                        </div>
+                    </section>
+                `;
+            
+            case 'gallery':
+                const galleryCount = parseInt(getValue('block-count')) || 4;
+                let galleryItems = '';
+                for (let i = 0; i < galleryCount; i++) {
+                    galleryItems += `
+                        <div style="aspect-ratio: 4/3; background: linear-gradient(135deg, var(--bg-light), var(--border-light)); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                            <span style="color: var(--text-muted);">Klik om afbeelding toe te voegen</span>
+                        </div>
+                    `;
+                }
+                return `
+                    <section class="section custom-gallery" style="padding: 80px 0;">
+                        <div class="container">
+                            <h2 style="text-align: center; margin-bottom: 3rem;">${getValue('block-title')}</h2>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                                ${galleryItems}
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            case 'video':
+                const videoUrl = getValue('block-video');
+                return `
+                    <section class="section custom-video" style="padding: 80px 0; background: var(--bg-dark);">
+                        <div class="container" style="max-width: 900px;">
+                            <h2 style="text-align: center; color: white; margin-bottom: 2rem;">${getValue('block-title')}</h2>
+                            <div style="aspect-ratio: 16/9; background: black; border-radius: 16px; overflow: hidden;">
+                                ${videoUrl ? `<iframe src="${videoUrl}" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>` : '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Video placeholder - voer YouTube URL in</div>'}
+                            </div>
+                        </div>
+                    </section>
+                `;
+            
+            default:
+                return '<div>Blok niet gevonden</div>';
+        }
     }
     
     // Show modal to configure and place new element
