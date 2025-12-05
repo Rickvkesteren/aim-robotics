@@ -1304,14 +1304,41 @@ class LiveEditor {
     }
     
     // Publish to GitHub - exports complete HTML
-    publishToGitHub() {
+    async publishToGitHub() {
         // First save changes
         this.saveChangesWithoutRefresh();
         
         // Get clean HTML without editor elements
         const html = this.generateCleanHTML();
         
-        // Download the HTML file
+        // Try to use File System Access API for direct save
+        if ('showSaveFilePicker' in window) {
+            try {
+                const options = {
+                    suggestedName: 'index.html',
+                    types: [{
+                        description: 'HTML Files',
+                        accept: { 'text/html': ['.html'] }
+                    }]
+                };
+                
+                const handle = await window.showSaveFilePicker(options);
+                const writable = await handle.createWritable();
+                await writable.write(html);
+                await writable.close();
+                
+                // Show success modal with git commands
+                this.showPublishModalAuto();
+                return;
+            } catch (err) {
+                // User cancelled or API not supported, fall back to download
+                if (err.name !== 'AbortError') {
+                    console.log('File System Access API failed, falling back to download');
+                }
+            }
+        }
+        
+        // Fallback: Download the HTML file
         const blob = new Blob([html], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1444,6 +1471,72 @@ git push</code>
                         
                         <div class="publish-step">
                             <span class="step-number">4</span>
+                            <div class="step-content">
+                                <strong>Klaar!</strong>
+                                <p>Binnen 1-2 minuten is je website live op:</p>
+                                <a href="https://rickvkesteren.github.io/aim-robotics/" target="_blank" class="live-link">
+                                    🌐 rickvkesteren.github.io/aim-robotics
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close button
+        modal.querySelector('.publish-modal-close').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        // Click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        // Show with animation
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+    }
+    
+    // Show simplified modal when file was saved directly
+    showPublishModalAuto() {
+        const existing = document.querySelector('.publish-modal');
+        if (existing) existing.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'publish-modal';
+        modal.innerHTML = `
+            <div class="publish-modal-content">
+                <div class="publish-modal-header">
+                    <h3>🚀 Publiceren naar GitHub</h3>
+                    <button class="publish-modal-close">&times;</button>
+                </div>
+                <div class="publish-modal-body">
+                    <div class="publish-success">
+                        <div class="publish-icon">✅</div>
+                        <p><strong>index.html</strong> is opgeslagen!</p>
+                    </div>
+                    
+                    <div class="publish-steps">
+                        <h4>Laatste stap - Push naar GitHub:</h4>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Voer dit commando uit in VS Code terminal:</strong>
+                                <div class="code-block-wrapper">
+                                    <code class="code-block">git add . && git commit -m "Update website content" && git push</code>
+                                    <button class="copy-btn" onclick="navigator.clipboard.writeText('git add . && git commit -m \\'Update website content\\' && git push'); this.textContent='✓ Gekopieerd!'">📋 Kopieer</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">2</span>
                             <div class="step-content">
                                 <strong>Klaar!</strong>
                                 <p>Binnen 1-2 minuten is je website live op:</p>
