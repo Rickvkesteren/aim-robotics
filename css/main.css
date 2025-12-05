@@ -245,35 +245,42 @@ p:last-child {
     background-clip: text;
 }
 
-/* Powered by label in header */
-.powered-by-header {
-    display: inline-block;
-    margin-left: 12px;
-    padding: 3px 8px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+/* Powered by ribbon below logo */
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.powered-by-ribbon {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.powered-by-ribbon a {
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    vertical-align: middle;
     transition: all 0.3s ease;
-    letter-spacing: 0.3px;
+    padding: 2px 6px;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), transparent);
+    border-left: 2px solid var(--primary-cyan);
 }
 
-.powered-by-header:hover {
+.powered-by-ribbon a:hover {
     color: var(--primary-cyan);
-    background: rgba(6, 182, 212, 0.15);
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.3), transparent);
 }
 
-.navbar.scrolled .powered-by-header {
-    color: rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.05);
+.navbar.scrolled .powered-by-ribbon a {
+    color: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), transparent);
 }
 
-.navbar.scrolled .powered-by-header:hover {
+.navbar.scrolled .powered-by-ribbon a:hover {
     color: var(--primary-cyan);
-    background: rgba(6, 182, 212, 0.1);
 }
 
 .nav-links {

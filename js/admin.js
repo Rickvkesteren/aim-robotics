@@ -1311,44 +1311,247 @@ class LiveEditor {
         // Get clean HTML without editor elements
         const html = this.generateCleanHTML();
         
-        // Try to use File System Access API for direct save
-        if ('showSaveFilePicker' in window) {
+        // Check if we have a GitHub token stored
+        const githubToken = localStorage.getItem('aim-github-token');
+        
+        if (githubToken) {
+            // Try automatic push to GitHub
             try {
-                const options = {
-                    suggestedName: 'index.html',
-                    types: [{
-                        description: 'HTML Files',
-                        accept: { 'text/html': ['.html'] }
-                    }]
-                };
-                
-                const handle = await window.showSaveFilePicker(options);
-                const writable = await handle.createWritable();
-                await writable.write(html);
-                await writable.close();
-                
-                // Show success modal with git commands
-                this.showPublishModalAuto();
+                await this.pushToGitHubAPI(html, githubToken);
                 return;
             } catch (err) {
-                // User cancelled or API not supported, fall back to download
-                if (err.name !== 'AbortError') {
-                    console.log('File System Access API failed, falling back to download');
+                console.error('GitHub API push failed:', err);
+                // Token might be invalid, remove it
+                if (err.message.includes('401') || err.message.includes('403')) {
+                    localStorage.removeItem('aim-github-token');
                 }
             }
         }
         
-        // Fallback: Download the HTML file
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'index.html';
-        a.click();
-        URL.revokeObjectURL(url);
+        // Show modal to either setup token or use manual method
+        this.showPublishOptionsModal(html);
+    }
+    
+    // Push directly to GitHub using API
+    async pushToGitHubAPI(html, token) {
+        const owner = 'Rickvkesteren';
+        const repo = 'aim-robotics';
+        const path = 'index.html';
+        const branch = 'main';
         
-        // Show publish modal with instructions
-        this.showPublishModal();
+        // First, get the current file to get its SHA
+        const getResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        if (!getResponse.ok && getResponse.status !== 404) {
+            throw new Error(`GitHub API error: ${getResponse.status}`);
+        }
+        
+        let sha = null;
+        if (getResponse.ok) {
+            const fileData = await getResponse.json();
+            sha = fileData.sha;
+        }
+        
+        // Now update/create the file
+        const content = btoa(unescape(encodeURIComponent(html))); // Base64 encode
+        
+        const updateResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update website content via Live Editor',
+                content: content,
+                sha: sha,
+                branch: branch
+            })
+        });
+        
+        if (!updateResponse.ok) {
+            const errorData = await updateResponse.json();
+            throw new Error(`GitHub API error: ${updateResponse.status} - ${errorData.message}`);
+        }
+        
+        // Success!
+        this.showPublishSuccessModal();
+    }
+    
+    // Show publish success modal
+    showPublishSuccessModal() {
+        const existing = document.querySelector('.publish-modal');
+        if (existing) existing.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'publish-modal';
+        modal.innerHTML = `
+            <div class="publish-modal-content">
+                <div class="publish-modal-header">
+                    <h3>🎉 Gepubliceerd!</h3>
+                    <button class="publish-modal-close">&times;</button>
+                </div>
+                <div class="publish-modal-body">
+                    <div class="publish-success">
+                        <div class="publish-icon" style="font-size: 4rem;">🚀</div>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;"><strong>Je website is bijgewerkt!</strong></p>
+                        <p style="color: rgba(255,255,255,0.6); margin-top: 0.5rem;">De wijzigingen zijn automatisch naar GitHub gepusht.</p>
+                    </div>
+                    
+                    <div class="publish-step" style="margin-top: 1.5rem; text-align: center;">
+                        <p>Binnen 1-2 minuten live op:</p>
+                        <a href="https://rickvkesteren.github.io/aim-robotics/" target="_blank" class="live-link" style="display: inline-block; margin-top: 0.5rem;">
+                            🌐 rickvkesteren.github.io/aim-robotics
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        modal.querySelector('.publish-modal-close').addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        requestAnimationFrame(() => modal.classList.add('active'));
+    }
+    
+    // Show publish options modal
+    showPublishOptionsModal(html) {
+        const existing = document.querySelector('.publish-modal');
+        if (existing) existing.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'publish-modal';
+        modal.innerHTML = `
+            <div class="publish-modal-content" style="max-width: 500px;">
+                <div class="publish-modal-header">
+                    <h3>🚀 Publiceren naar GitHub</h3>
+                    <button class="publish-modal-close">&times;</button>
+                </div>
+                <div class="publish-modal-body">
+                    <div class="publish-tabs">
+                        <button class="publish-tab active" data-tab="auto">⚡ Automatisch</button>
+                        <button class="publish-tab" data-tab="manual">📋 Handmatig</button>
+                    </div>
+                    
+                    <div class="publish-tab-content active" id="tab-auto">
+                        <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7);">
+                            Stel eenmalig een GitHub token in om met 1 klik te publiceren.
+                        </p>
+                        
+                        <div class="token-setup">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">GitHub Personal Access Token:</label>
+                            <input type="password" class="github-token-input" placeholder="ghp_xxxxxxxxxxxx" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; font-family: monospace;">
+                            
+                            <details style="margin-top: 1rem; color: rgba(255,255,255,0.6); font-size: 0.85rem;">
+                                <summary style="cursor: pointer; color: var(--primary-cyan);">Hoe maak ik een token?</summary>
+                                <ol style="margin-top: 0.5rem; padding-left: 1.2rem; line-height: 1.6;">
+                                    <li>Ga naar <a href="https://github.com/settings/tokens/new" target="_blank" style="color: var(--primary-cyan);">github.com/settings/tokens/new</a></li>
+                                    <li>Geef een naam (bijv. "AIM Website Editor")</li>
+                                    <li>Selecteer scope: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">repo</code></li>
+                                    <li>Klik "Generate token" en kopieer de code</li>
+                                </ol>
+                            </details>
+                            
+                            <button class="save-token-btn" style="margin-top: 1rem; width: 100%; padding: 12px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer;">
+                                💾 Token Opslaan & Publiceren
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="publish-tab-content" id="tab-manual">
+                        <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7);">
+                            Download het bestand en push handmatig naar GitHub.
+                        </p>
+                        
+                        <button class="download-html-btn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; border-radius: 8px; color: white; font-weight: 600; cursor: pointer; margin-bottom: 1rem;">
+                            📥 Download index.html
+                        </button>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Vervang index.html in je project map</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Push naar GitHub:</strong>
+                                <div class="code-block-wrapper">
+                                    <code class="code-block">git add . && git commit -m "Update" && git push</code>
+                                    <button class="copy-btn" onclick="navigator.clipboard.writeText('git add . && git commit -m \\'Update\\' && git push'); this.textContent='✓'">📋</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Tab switching
+        modal.querySelectorAll('.publish-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                modal.querySelectorAll('.publish-tab').forEach(t => t.classList.remove('active'));
+                modal.querySelectorAll('.publish-tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                modal.querySelector(`#tab-${tab.dataset.tab}`).classList.add('active');
+            });
+        });
+        
+        // Save token and publish
+        modal.querySelector('.save-token-btn').addEventListener('click', async () => {
+            const tokenInput = modal.querySelector('.github-token-input');
+            const token = tokenInput.value.trim();
+            
+            if (!token) {
+                tokenInput.style.borderColor = '#ef4444';
+                return;
+            }
+            
+            const btn = modal.querySelector('.save-token-btn');
+            btn.textContent = '⏳ Publiceren...';
+            btn.disabled = true;
+            
+            try {
+                await this.pushToGitHubAPI(html, token);
+                localStorage.setItem('aim-github-token', token);
+                modal.remove();
+            } catch (err) {
+                btn.textContent = '❌ Fout - Controleer token';
+                btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                setTimeout(() => {
+                    btn.textContent = '💾 Token Opslaan & Publiceren';
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    btn.disabled = false;
+                }, 2000);
+            }
+        });
+        
+        // Download button
+        modal.querySelector('.download-html-btn').addEventListener('click', () => {
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        // Close handlers
+        modal.querySelector('.publish-modal-close').addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        requestAnimationFrame(() => modal.classList.add('active'));
     }
     
     // Save without page refresh
