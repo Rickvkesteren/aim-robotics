@@ -650,6 +650,14 @@ class LiveEditor {
                     </svg>
                     <span>Opslaan</span>
                 </button>
+                <button class="admin-btn admin-btn-publish" title="Publiceren naar GitHub">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    <span>Publiceren</span>
+                </button>
                 <button class="admin-btn admin-btn-reset" title="Alle wijzigingen ongedaan maken">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/>
@@ -657,7 +665,7 @@ class LiveEditor {
                     </svg>
                     <span>Reset</span>
                 </button>
-                <button class="admin-btn admin-btn-export" title="Wijzigingen exporteren">
+                <button class="admin-btn admin-btn-export" title="Wijzigingen exporteren als JSON">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
                         <polyline points="7,10 12,15 17,10"/>
@@ -678,6 +686,7 @@ class LiveEditor {
         
         // Bind button events
         panel.querySelector('.admin-btn-save').addEventListener('click', () => this.saveChanges());
+        panel.querySelector('.admin-btn-publish').addEventListener('click', () => this.publishToGitHub());
         panel.querySelector('.admin-btn-reset').addEventListener('click', () => this.resetChanges());
         panel.querySelector('.admin-btn-export').addEventListener('click', () => this.exportChanges());
         panel.querySelector('.admin-btn-close').addEventListener('click', () => this.toggleEditMode());
@@ -1292,6 +1301,178 @@ class LiveEditor {
         URL.revokeObjectURL(url);
         
         this.showNotification('📥 Wijzigingen geëxporteerd!', 'success');
+    }
+    
+    // Publish to GitHub - exports complete HTML
+    publishToGitHub() {
+        // First save changes
+        this.saveChangesWithoutRefresh();
+        
+        // Get clean HTML without editor elements
+        const html = this.generateCleanHTML();
+        
+        // Download the HTML file
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        // Show publish modal with instructions
+        this.showPublishModal();
+    }
+    
+    // Save without page refresh
+    saveChangesWithoutRefresh() {
+        const textChanges = Object.keys(this.changes).length;
+        const imgChanges = Object.keys(this.imageChanges).length;
+        
+        if (textChanges > 0) {
+            localStorage.setItem('aim-editor-changes', JSON.stringify(this.changes));
+        }
+        if (imgChanges > 0) {
+            localStorage.setItem('aim-editor-images', JSON.stringify(this.imageChanges));
+        }
+        localStorage.setItem('aim-editor-timestamp', new Date().toISOString());
+    }
+    
+    // Generate clean HTML without editor elements
+    generateCleanHTML() {
+        // Clone the document
+        const clone = document.cloneNode(true);
+        
+        // Remove all editor-related elements
+        const removeSelectors = [
+            '.admin-panel',
+            '.admin-toggle',
+            '.admin-login-modal',
+            '.admin-image-modal',
+            '.admin-notification',
+            '.add-element-modal',
+            '.drag-toolbar',
+            '.property-panel',
+            '.drag-context-menu',
+            '.selection-box',
+            '.image-edit-overlay',
+            '.image-edit-badge',
+            '.editable-image-wrapper > .image-edit-overlay',
+            '.editable-image-wrapper > .image-edit-badge'
+        ];
+        
+        removeSelectors.forEach(selector => {
+            clone.querySelectorAll(selector).forEach(el => el.remove());
+        });
+        
+        // Remove editor classes
+        clone.querySelectorAll('.editable').forEach(el => {
+            el.classList.remove('editable', 'unsaved');
+            el.removeAttribute('contenteditable');
+        });
+        
+        clone.querySelectorAll('.drag-selectable').forEach(el => {
+            el.classList.remove('drag-selectable', 'drag-selected');
+        });
+        
+        clone.querySelectorAll('.editable-image-wrapper').forEach(wrapper => {
+            const img = wrapper.querySelector('img');
+            if (img) {
+                wrapper.parentNode.insertBefore(img, wrapper);
+                wrapper.remove();
+            }
+        });
+        
+        // Remove admin-edit-mode class from body
+        clone.body.classList.remove('admin-edit-mode', 'drag-mode-active');
+        
+        // Get the HTML
+        return '<!DOCTYPE html>\n' + clone.documentElement.outerHTML;
+    }
+    
+    // Show publish modal with instructions
+    showPublishModal() {
+        const existing = document.querySelector('.publish-modal');
+        if (existing) existing.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'publish-modal';
+        modal.innerHTML = `
+            <div class="publish-modal-content">
+                <div class="publish-modal-header">
+                    <h3>🚀 Publiceren naar GitHub</h3>
+                    <button class="publish-modal-close">&times;</button>
+                </div>
+                <div class="publish-modal-body">
+                    <div class="publish-success">
+                        <div class="publish-icon">📥</div>
+                        <p><strong>index.html</strong> is gedownload!</p>
+                    </div>
+                    
+                    <div class="publish-steps">
+                        <h4>Volg deze stappen:</h4>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Vervang het bestand</strong>
+                                <p>Kopieer de gedownloade <code>index.html</code> naar je project folder en overschrijf het bestaande bestand:</p>
+                                <code class="code-block">c:\\Users\\RVK\\Documents\\VS_Code\\AIM robotics\\</code>
+                            </div>
+                        </div>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Open terminal in VS Code</strong>
+                                <p>Druk <kbd>Ctrl</kbd> + <kbd>\`</kbd> of ga naar Terminal → New Terminal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Voer deze commando's uit:</strong>
+                                <div class="code-block-wrapper">
+                                    <code class="code-block">git add .
+git commit -m "Update website content"
+git push</code>
+                                    <button class="copy-btn" onclick="navigator.clipboard.writeText('git add . && git commit -m \\'Update website content\\' && git push')">📋 Kopieer</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="publish-step">
+                            <span class="step-number">4</span>
+                            <div class="step-content">
+                                <strong>Klaar!</strong>
+                                <p>Binnen 1-2 minuten is je website live op:</p>
+                                <a href="https://rickvkesteren.github.io/aim-robotics/" target="_blank" class="live-link">
+                                    🌐 rickvkesteren.github.io/aim-robotics
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close button
+        modal.querySelector('.publish-modal-close').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        // Click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        // Show with animation
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
     }
     
     // Show notification

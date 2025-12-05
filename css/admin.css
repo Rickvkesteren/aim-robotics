@@ -1595,3 +1595,241 @@
 .admin-divider {
     opacity: 0.8;
 }
+
+/* ============================================
+   PUBLISH BUTTON
+   ============================================ */
+.admin-btn-publish {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    border-color: #10b981 !important;
+}
+
+.admin-btn-publish:hover {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* ============================================
+   PUBLISH MODAL
+   ============================================ */
+.publish-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100010;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.publish-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.publish-modal-content {
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+}
+
+.publish-modal.active .publish-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.publish-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
+}
+
+.publish-modal-header h3 {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.publish-modal-close {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.publish-modal-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.publish-modal-body {
+    padding: 25px;
+    max-height: calc(90vh - 80px);
+    overflow-y: auto;
+}
+
+.publish-success {
+    text-align: center;
+    padding: 20px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.publish-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.publish-success p {
+    color: #10b981;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.publish-success code {
+    background: rgba(16, 185, 129, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.publish-steps h4 {
+    color: white;
+    margin: 0 0 20px 0;
+    font-size: 1rem;
+}
+
+.publish-step {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.publish-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: white;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content strong {
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.step-content p {
+    color: #9ca3af;
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.step-content kbd {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: white;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.code-block {
+    display: block;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #10b981;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.code-block-wrapper {
+    position: relative;
+}
+
+.code-block-wrapper .code-block {
+    padding-right: 80px;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 6px 12px;
+    background: rgba(0, 102, 204, 0.2);
+    border: 1px solid rgba(0, 102, 204, 0.3);
+    border-radius: 6px;
+    color: #0066cc;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: rgba(0, 102, 204, 0.3);
+    color: white;
+}
+
+.live-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.live-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+}
