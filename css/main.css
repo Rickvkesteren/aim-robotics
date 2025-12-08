@@ -1012,6 +1012,25 @@ p:last-child {
     box-shadow: var(--shadow-colored);
 }
 
+.card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: var(--gradient-primary);
+    border-radius: 14px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-colored);
+}
+
+.card-icon svg {
+    width: 26px;
+    height: 26px;
+    color: #FFFFFF;
+    stroke: #FFFFFF;
+}
+
 .dienst-card h3 {
     font-size: 1.25rem;
     margin-bottom: 20px;
