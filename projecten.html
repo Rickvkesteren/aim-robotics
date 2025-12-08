@@ -3,126 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projecten - Referenties en Realisaties | AIM-Robotics</title>
+    <title>Projecten | AIM-Robotics</title>
+    <meta name="description" content="Ontdek onze gerealiseerde robotica projecten. Van lascellen tot vision systemen - bekijk wat wij voor anderen hebben gerealiseerd.">
     
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Projecten - Referenties en Realisaties | AIM-Robotics">
-    <meta name="description" content="Ontdek onze gerealiseerde robotica projecten in diverse industrieën. Van metaalbewerking tot logistiek — bewezen expertise in industriële automatisering.">
-    <meta name="keywords" content="robotica projecten, referenties, case studies, industriële automatisering, robotcel, pick and place, lassen, palletiseren">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.aim-robotics.nl/projecten">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.aim-robotics.nl/projecten">
-    <meta property="og:title" content="Projecten - Referenties en Realisaties | AIM-Robotics">
-    <meta property="og:description" content="Ontdek onze gerealiseerde robotica projecten in diverse industrieën.">
-    <meta property="og:image" content="https://www.aim-robotics.nl/Assets/Freesrobot.png">
-    
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Projecten - Referenties en Realisaties | AIM-Robotics">
-    <meta name="twitter:description" content="Ontdek onze gerealiseerde robotica projecten in diverse industrieën.">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "AIM-Robotics Projecten",
-        "description": "Overzicht van gerealiseerde robotica projecten",
-        "provider": {
-            "@type": "Organization",
-            "name": "AIM-Robotics",
-            "url": "https://www.aim-robotics.nl"
-        },
-        "hasPart": [
-            {
-                "@type": "CreativeWork",
-                "name": "Geautomatiseerde Lascel Metaalbewerking",
-                "description": "Robotgestuurde lasoplossing voor hoogwaardige metaalbewerking met 40% productiviteitsverbetering"
-            },
-            {
-                "@type": "CreativeWork",
-                "name": "Vision-guided Pick & Place Logistiek",
-                "description": "Intelligent sorteer- en palletiseersysteem met 3D vision voor e-commerce fulfillment"
-            },
-            {
-                "@type": "CreativeWork",
-                "name": "CNC Machine Tending Productie",
-                "description": "24/7 automatische be- en ontlading van CNC freesmachines met kwaliteitscontrole"
-            },
-            {
-                "@type": "CreativeWork",
-                "name": "Collaborative Assembly Lijn",
-                "description": "Mens-robot samenwerking voor flexibele assemblage met cobots"
-            },
-            {
-                "@type": "CreativeWork",
-                "name": "Depalletisering Scheepsbouw",
-                "description": "Heavy-duty robot voor automatische handling van scheepsbouwcomponenten tot 500kg"
-            },
-            {
-                "@type": "CreativeWork",
-                "name": "Kwaliteitsinspectie met AI Vision",
-                "description": "Geautomatiseerde visual inspection met machine learning voor 100% kwaliteitsborging"
-            }
-        ]
-    }
-    </script>
-    
-    <!-- Breadcrumb Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.aim-robotics.nl/"
-        }, {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Projecten",
-            "item": "https://www.aim-robotics.nl/projecten"
-        }]
-    }
-    </script>
-    
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/contrast-fixes.css">
-    <link rel="stylesheet" href="css/landing-pages.css">
-    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="css/projecten-new.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Skip Link -->
     <a href="#main-content" class="skip-link">Spring naar hoofdinhoud</a>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="navbar" role="navigation" aria-label="Hoofdnavigatie">
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <span class="loader-text">AIM<span>ROBOTICS</span></span>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo" aria-label="AIM Robotics - Terug naar home">
+            <a href="index.html" class="logo">
                 <span class="logo-text">AIM<span class="accent">ROBOTICS</span></span>
                 <span class="powered-by-ribbon"><a href="https://www.grimbergen.nl" target="_blank" rel="noopener noreferrer">powered by Grimbergen</a></span>
             </a>
-            <ul class="nav-links" role="list">
+            <ul class="nav-links">
                 <li><a href="diensten.html" class="nav-link">Diensten</a></li>
-                <li><a href="projecten.html" class="nav-link active" aria-current="page">Projecten</a></li>
+                <li><a href="projecten.html" class="nav-link active">Projecten</a></li>
                 <li><a href="industrieen.html" class="nav-link">Industrieën</a></li>
                 <li><a href="proces.html" class="nav-link">Proces</a></li>
                 <li><a href="over-ons.html" class="nav-link">Over Ons</a></li>
                 <li><a href="index.html#contact" class="nav-link cta-button">Contact</a></li>
             </ul>
-            <button class="hamburger" aria-label="Menu openen" aria-expanded="false" aria-controls="nav-links">
+            <button class="hamburger" aria-label="Menu openen" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -130,311 +46,498 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main id="main-content">
-        <!-- Page Header -->
-        <header class="page-header" role="banner">
-            <div class="container">
-                <nav aria-label="Broodkruimelnavigatie" class="breadcrumb">
-                    <ol>
-                        <li><a href="index.html">Home</a></li>
-                        <li aria-current="page">Projecten</li>
-                    </ol>
-                </nav>
-                <h1>Onze Projecten</h1>
-                <p class="lead">Bewezen expertise in industriële robotica — ontdek wat wij voor anderen hebben gerealiseerd</p>
+        
+        <!-- Hero Section -->
+        <section class="hero projecten-hero">
+            <div class="hero-bg">
+                <div class="hero-gradient"></div>
+                <div class="hero-grid"></div>
             </div>
-        </header>
-
-        <!-- Project Showcase -->
-        <section class="section" aria-labelledby="projects-heading">
-            <div class="container">
-                <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <h2 id="projects-heading">Gerealiseerde Projecten</h2>
-                    <p>Van kleine aanpassingen tot complete productie-omgevingen — elk project is een succes wanneer het uw proces verbetert en waarde toevoegt.</p>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Bewezen Resultaten
                 </div>
-
-                <div class="projects-showcase">
-                    <!-- Project 1: Lascel -->
-                    <article class="project-showcase-card" aria-labelledby="project1-heading">
-                        <img src="Assets/Freesrobot.png" alt="Robotcel voor geautomatiseerd lassen in metaalbewerking" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project1-heading">Geautomatiseerde Lascel Metaalbewerking</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Metaalbewerking</span>
-                                <span class="project-type">Lasautomatisering</span>
-                            </div>
-                            <p>Complete robotcel voor MIG/MAG lassen met automatische werkstukwisseling. De oplossing verhoogde de productiviteit met 40% en verbeterde de laskwaliteit significant door consistente procesbeheersing.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>+40%</strong> productiviteit</li>
-                                    <li><strong>-60%</strong> rejects door consistente kwaliteit</li>
-                                    <li><strong>ROI</strong> binnen 18 maanden</li>
-                                    <li><strong>24/7</strong> onbemande productie mogelijk</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Bespreek Uw Lasproject</a>
-                        </div>
-                    </article>
-
-                    <!-- Project 2: Pick & Place -->
-                    <article class="project-showcase-card" aria-labelledby="project2-heading">
-                        <img src="Assets/Freesrobot.png" alt="Vision-guided pick and place systeem voor logistiek" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project2-heading">Vision-guided Pick & Place Logistiek</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Logistiek</span>
-                                <span class="project-type">Pick & Place</span>
-                            </div>
-                            <p>Intelligent sorteer- en palletiseersysteem met 3D vision voor e-commerce fulfillment center. Het systeem herkent en grijpt producten van verschillende vormen en maten, en palletiseert deze volledig automatisch.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>1200</strong> picks per uur</li>
-                                    <li><strong>99.8%</strong> accuraatheid</li>
-                                    <li><strong>-75%</strong> arbeidskosten</li>
-                                    <li><strong>Flexibel</strong> voor diverse producten</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Ontdek Logistieke Automatisering</a>
-                        </div>
-                    </article>
-
-                    <!-- Project 3: Machine Tending -->
-                    <article class="project-showcase-card" aria-labelledby="project3-heading">
-                        <img src="Assets/Freesrobot.png" alt="CNC machine tending robot met geautomatiseerde werkstukwisseling" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project3-heading">CNC Machine Tending Productie</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Machinebouw</span>
-                                <span class="project-type">Machine Tending</span>
-                            </div>
-                            <p>Robotcel voor automatische be- en ontlading van 4 CNC freesmachines met geïntegreerde meting en kwaliteitscontrole. De robot werkt 24/7 en maximaliseert de benutting van dure CNC machines.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>85%</strong> machinebenutting (was 45%)</li>
-                                    <li><strong>3x</strong> meer productie uit zelfde machines</li>
-                                    <li><strong>100%</strong> geautomatiseerde kwaliteitscontrole</li>
-                                    <li><strong>Nachten</strong> onbemand productief</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Maximaliseer Machine-uren</a>
-                        </div>
-                    </article>
-
-                    <!-- Project 4: Cobot Assembly -->
-                    <article class="project-showcase-card" aria-labelledby="project4-heading">
-                        <img src="Assets/Freesrobot.png" alt="Collaborative robot voor flexibele assemblage werkzaamheden" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project4-heading">Collaborative Assembly Lijn</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Productie</span>
-                                <span class="project-type">Cobot Assembly</span>
-                            </div>
-                            <p>Flexibele assemblage lijn met collaboratieve robots die veilig naast operators werken. De cobots nemen repetitieve handelingen over, terwijl operators zich focussen op complexe taken en kwaliteitscontrole.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>+35%</strong> output per operator</li>
-                                    <li><strong>-80%</strong> RSI klachten door ergonomie</li>
-                                    <li><strong>Flexibel</strong> voor meerdere productvarianten</li>
-                                    <li><strong>Veilig</strong> mens-robot samenwerking</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Verken Cobot Mogelijkheden</a>
-                        </div>
-                    </article>
-
-                    <!-- Project 5: Heavy Duty -->
-                    <article class="project-showcase-card" aria-labelledby="project5-heading">
-                        <img src="Assets/Freesrobot.png" alt="Heavy-duty robot voor depalletisering in scheepsbouw" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project5-heading">Depalletisering Scheepsbouw</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Scheepsbouw</span>
-                                <span class="project-type">Heavy Duty</span>
-                            </div>
-                            <p>Krachtige robot voor automatische handling van scheepsbouwcomponenten tot 500kg. Inclusief custom grijpers en veiligheidsvoorzieningen voor werk met grote, zware onderdelen in een uitdagende productieomgeving.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>500kg</strong> draagvermogen per pick</li>
-                                    <li><strong>-90%</strong> fysieke belasting operators</li>
-                                    <li><strong>Veiliger</strong> werkomgeving</li>
-                                    <li><strong>Sneller</strong> dan handmatig handling</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Heavy Duty Oplossingen</a>
-                        </div>
-                    </article>
-
-                    <!-- Project 6: Vision Inspection -->
-                    <article class="project-showcase-card" aria-labelledby="project6-heading">
-                        <img src="Assets/Freesrobot.png" alt="AI-gebaseerd vision inspectiesysteem voor kwaliteitscontrole" class="project-showcase-image" loading="lazy">
-                        <div class="project-showcase-content">
-                            <h3 id="project6-heading">Kwaliteitsinspectie met AI Vision</h3>
-                            <div class="project-meta">
-                                <span class="project-industry">Kwaliteitscontrole</span>
-                                <span class="project-type">Vision Systems</span>
-                            </div>
-                            <p>Geavanceerd vision inspectiesysteem met machine learning voor 100% kwaliteitscontrole. Het systeem detecteert defecten die voor het menselijk oog nauwelijks zichtbaar zijn en documenteert alle metingen automatisch.</p>
-                            <div class="project-results">
-                                <h4>Resultaten:</h4>
-                                <ul>
-                                    <li><strong>100%</strong> producten geïnspecteerd</li>
-                                    <li><strong>99.95%</strong> detectie accuraatheid</li>
-                                    <li><strong>-85%</strong> doorgelaten defecten</li>
-                                    <li><strong>Volledige</strong> traceerbaarheid</li>
-                                </ul>
-                            </div>
-                            <a href="#contact" class="btn btn-secondary">Verken Vision Oplossingen</a>
-                        </div>
-                    </article>
+                <h1 class="hero-title">
+                    Onze <span class="gradient-text">Projecten</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Van concept tot realisatie - ontdek hoe wij bedrijven helpen automatiseren met robotica oplossingen die écht werken.
+                </p>
+                <div class="hero-filters">
+                    <button class="filter-btn active" data-filter="all">Alle Projecten</button>
+                    <button class="filter-btn" data-filter="lascel">Lascellen</button>
+                    <button class="filter-btn" data-filter="vision">Vision</button>
+                    <button class="filter-btn" data-filter="handling">Handling</button>
+                    <button class="filter-btn" data-filter="refurbishment">Refurbishment</button>
                 </div>
             </div>
         </section>
 
-        <!-- Industries Served -->
-        <section class="section why-choose" aria-labelledby="industries-heading">
+        <!-- Featured Project -->
+        <section class="projecten-section featured-section">
             <div class="container">
-                <div class="section-header" style="text-align: center;">
-                    <h2 id="industries-heading">Ervaring in Diverse Sectoren</h2>
-                    <p>Onze projecten beslaan een breed scala aan industrieën</p>
-                </div>
+                <div class="featured-project">
+                    <div class="featured-image">
+                        <div class="image-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <path d="M21 15l-5-5L5 21"/>
+                            </svg>
+                            <span>Project Foto</span>
+                        </div>
+                        <div class="featured-badge">Uitgelicht Project</div>
+                    </div>
+                    <div class="featured-content">
+                        <div class="project-meta">
+                            <span class="industry-tag">Metaalindustrie</span>
+                            <span class="date-tag">November 2024</span>
+                        </div>
+                        <h2>Geautomatiseerde Lascel voor Constructiebedrijf</h2>
+                        <p class="project-intro">
+                            Complete robotlascel voor een constructiebedrijf in Zuid-Holland. Van engineering tot oplevering - een project dat laat zien hoe automatisering de productie kan transformeren.
+                        </p>
+                        
+                        <div class="project-challenge">
+                            <h4>De Uitdaging</h4>
+                            <p>Het bedrijf had moeite om aan de groeiende vraag te voldoen. Handmatig lassen was tijdrovend en de kwaliteit varieerde tussen verschillende lassers. Ze zochten een oplossing die zowel de capaciteit als de consistentie kon verbeteren.</p>
+                        </div>
 
-                <div class="benefits-grid">
-                    <article class="benefit-card">
-                        <h3>Metaal & Machinebouw</h3>
-                        <p>Lassen, verspanen, buigen — we automatiseren uw metaalbewerkingsprocessen met precisie en betrouwbaarheid.</p>
-                    </article>
+                        <div class="project-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">+45%</span>
+                                <span class="stat-label">Productiviteit</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">-70%</span>
+                                <span class="stat-label">Afkeur</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">14</span>
+                                <span class="stat-label">Maanden ROI</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">24/7</span>
+                                <span class="stat-label">Inzetbaar</span>
+                            </div>
+                        </div>
 
-                    <article class="benefit-card">
-                        <h3>Logistiek & Warehousing</h3>
-                        <p>Pick & place, palletiseren, sorteren — verhoog uw doorvoer met intelligente automatisering.</p>
-                    </article>
-
-                    <article class="benefit-card">
-                        <h3>Food & Packaging</h3>
-                        <p>Hygiënische oplossingen voor voedselveilige handling en verpakking volgens HACCP normen.</p>
-                    </article>
-
-                    <article class="benefit-card">
-                        <h3>Automotive</h3>
-                        <p>Assemblage, testen, kwaliteitscontrole — automotive-grade betrouwbaarheid en snelheid.</p>
-                    </article>
-
-                    <article class="benefit-card">
-                        <h3>Scheepsbouw</h3>
-                        <p>Heavy-duty oplossingen voor grote componenten en uitdagende productieomstandigheden.</p>
-                    </article>
-
-                    <article class="benefit-card">
-                        <h3>Elektronica</h3>
-                        <p>Precisie assemblage en inspectie voor gevoelige elektronische componenten en printplaten.</p>
-                    </article>
+                        <a href="index.html#contact" class="btn-primary">
+                            Vergelijkbaar project bespreken
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Process Overview -->
-        <section class="section" aria-labelledby="approach-heading">
+        <!-- Projects Grid -->
+        <section class="projecten-section">
             <div class="container">
-                <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto;">
-                    <h2 id="approach-heading">Onze Aanpak Per Project</h2>
-                    <p>Elk project is uniek, maar onze methodiek is bewezen</p>
+                <div class="section-header">
+                    <p class="section-tag">Portfolio</p>
+                    <h2 class="section-title">Meer Projecten</h2>
+                    <p class="section-subtitle">Een selectie van onze gerealiseerde automatiseringsprojecten</p>
                 </div>
 
-                <div class="benefits-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                    <article class="benefit-card">
-                        <h3>1. Intake & Analyse</h3>
-                        <p>We luisteren naar uw uitdagingen en analyseren uw proces grondig.</p>
+                <div class="projects-grid">
+                    
+                    <!-- Project Card 1 -->
+                    <article class="project-card" data-category="vision">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Food & Beverage</span>
+                                <span class="tag-type">Vision Systeem</span>
+                            </div>
+                            <h3>Kwaliteitsinspectie Verpakkingslijn</h3>
+                            <p>Vision systeem voor 100% inline kwaliteitscontrole op een hoogvolume verpakkingslijn. Detectie van defecten, labels en vullingsgraad.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>500+</strong>
+                                    <span>producten/min</span>
+                                </div>
+                                <div class="result">
+                                    <strong>99.9%</strong>
+                                    <span>detectie</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="benefit-card">
-                        <h3>2. Ontwerp & Proof</h3>
-                        <p>We ontwikkelen de oplossing en testen kritische functionaliteiten.</p>
+                    <!-- Project Card 2 -->
+                    <article class="project-card" data-category="handling">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Logistiek</span>
+                                <span class="tag-type">Palletiseren</span>
+                            </div>
+                            <h3>Automatische Palletiseerlijn</h3>
+                            <p>High-speed palletiseersysteem voor een distributiecentrum. Flexibel programmeerbaar voor verschillende dozen- en palletformaten.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>1200</strong>
+                                    <span>dozen/uur</span>
+                                </div>
+                                <div class="result">
+                                    <strong>-65%</strong>
+                                    <span>arbeidskosten</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="benefit-card">
-                        <h3>3. Bouw & Test</h3>
-                        <p>Pre-assemblage en uitgebreide tests in onze werkplaats.</p>
+                    <!-- Project Card 3 -->
+                    <article class="project-card" data-category="lascel">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Staalconstructie</span>
+                                <span class="tag-type">Robotlassen</span>
+                            </div>
+                            <h3>Dual-Robot Lascel</h3>
+                            <p>Twee-robot configuratie voor het simultaan lassen van grote staalconstructies. Inclusief positioner en automatische draadaanvoer.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>2x</strong>
+                                    <span>sneller</span>
+                                </div>
+                                <div class="result">
+                                    <strong>+50%</strong>
+                                    <span>capaciteit</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="benefit-card">
-                        <h3>4. Installatie</h3>
-                        <p>On-site implementatie met minimale productiestilstand.</p>
+                    <!-- Project Card 4 -->
+                    <article class="project-card" data-category="refurbishment">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Automotive</span>
+                                <span class="tag-type">Refurbishment</span>
+                            </div>
+                            <h3>ABB Robot Modernisering</h3>
+                            <p>Complete refurbishment van een 15 jaar oude ABB lasrobot. Nieuwe besturing, software upgrade en safety modernisering.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>60%</strong>
+                                    <span>besparing</span>
+                                </div>
+                                <div class="result">
+                                    <strong>+30%</strong>
+                                    <span>snelheid</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="benefit-card">
-                        <h3>5. Training & GO</h3>
-                        <p>Uw team volledig opgeleid voor optimaal gebruik.</p>
+                    <!-- Project Card 5 -->
+                    <article class="project-card" data-category="vision">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Elektronica</span>
+                                <span class="tag-type">Vision + Handling</span>
+                            </div>
+                            <h3>PCB Inspectie & Sorting</h3>
+                            <p>Geautomatiseerd inspectiesysteem voor printplaten met AI-gestuurde defectherkenning en automatische sorting.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>100%</strong>
+                                    <span>inspectie</span>
+                                </div>
+                                <div class="result">
+                                    <strong>AI</strong>
+                                    <span>powered</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="benefit-card">
-                        <h3>6. Optimalisatie</h3>
-                        <p>Continue verbetering en uitbreiding waar nodig.</p>
+                    <!-- Project Card 6 -->
+                    <article class="project-card" data-category="handling">
+                        <div class="project-image">
+                            <div class="image-placeholder">
+                                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            </div>
+                            <div class="project-overlay">
+                                <span class="view-project">Bekijk Project</span>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="tag-industry">Betonindustrie</span>
+                                <span class="tag-type">Machine Tending</span>
+                            </div>
+                            <h3>CNC Machine Belading</h3>
+                            <p>Automatische be- en ontlading van CNC bewerkingscentra voor betonnen producten. Inclusief kwaliteitscontrole en afvoer.</p>
+                            <div class="project-results-mini">
+                                <div class="result">
+                                    <strong>24/7</strong>
+                                    <span>productie</span>
+                                </div>
+                                <div class="result">
+                                    <strong>-80%</strong>
+                                    <span>handwerk</span>
+                                </div>
+                            </div>
+                        </div>
                     </article>
+
+                </div>
+
+                <div class="load-more">
+                    <button class="btn-load-more">
+                        Meer projecten laden
+                        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="projecten-section alt">
+            <div class="container">
+                <div class="testimonial-showcase">
+                    <div class="testimonial-content">
+                        <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                        <blockquote>
+                            "De samenwerking met AIM-Robotics was van begin tot eind professioneel. Ze namen de tijd om ons proces te begrijpen en kwamen met een oplossing die perfect aansloot bij onze wensen. De lascel draait nu 8 maanden foutloos."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <span>JV</span>
+                            </div>
+                            <div class="author-info">
+                                <strong>Jan Vermeulen</strong>
+                                <span>Productiemanager, Constructiebedrijf De Vries</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries Preview -->
+        <section class="projecten-section">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-tag">Ervaring</p>
+                    <h2 class="section-title">Industrieën</h2>
+                    <p class="section-subtitle">We hebben ervaring in diverse sectoren</p>
+                </div>
+
+                <div class="industries-grid">
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V10l7-7 7 7v10M9 20v-6h6v6"/></svg>
+                        </div>
+                        <span>Metaal</span>
+                    </div>
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <span>Logistiek</span>
+                    </div>
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        </div>
+                        <span>Food</span>
+                    </div>
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+                        </div>
+                        <span>Automotive</span>
+                    </div>
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+                        </div>
+                        <span>Elektronica</span>
+                    </div>
+                    <div class="industry-item">
+                        <div class="industry-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        </div>
+                        <span>Beton</span>
+                    </div>
+                </div>
+
+                <div class="industries-cta">
+                    <a href="industrieen.html" class="btn-outline-dark">
+                        Bekijk alle industrieën
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Journey Navigation -->
+        <section class="journey-navigation">
+            <div class="container">
+                <div class="section-header">
+                    <p class="section-tag">Volgende Stap</p>
+                    <h2 class="section-title">Ga Verder</h2>
+                    <p class="section-subtitle">Ontdek meer over onze aanpak en diensten</p>
+                </div>
+                <div class="journey-grid">
+                    <a href="diensten.html" class="journey-item">
+                        <div class="journey-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="journey-text">
+                            <strong>Diensten</strong>
+                            <span>Wat wij bieden</span>
+                        </div>
+                        <svg class="arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="industrieen.html" class="journey-item">
+                        <div class="journey-icon">
+                            <svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V10l7-7 7 7v10M9 20v-6h6v6"/></svg>
+                        </div>
+                        <div class="journey-text">
+                            <strong>Industrieën</strong>
+                            <span>Jouw sector</span>
+                        </div>
+                        <svg class="arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="proces.html" class="journey-item">
+                        <div class="journey-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="journey-text">
+                            <strong>Proces</strong>
+                            <span>Hoe we werken</span>
+                        </div>
+                        <svg class="arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- CTA Section -->
-        <section class="section cta-section" aria-labelledby="cta-heading">
-            <div class="container" style="text-align: center;">
-                <h2 id="cta-heading">Uw Project Bespreken?</h2>
-                <p style="font-size: var(--text-lg); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    Laat ons samen kijken wat robotica voor uw bedrijf kan betekenen. Vrijblijvend en zonder verplichtingen.
-                </p>
-                <a href="#contact" class="btn btn-primary btn-lg">Plan een Gesprek</a>
+        <section class="projecten-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Jouw project als volgende?</h2>
+                    <p>Laten we bespreken hoe we jouw productieproces kunnen automatiseren met een oplossing op maat.</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#contact" class="btn-primary">
+                            Start een Gesprek
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="diensten.html" class="btn-secondary">
+                            Bekijk Diensten
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>AIM<span class="accent">ROBOTICS</span></h3>
-                    <p>Industriële robotica oplossingen voor de moderne productieomgeving.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-text">AIM<span class="accent">ROBOTICS</span></span>
+                    <p>Advanced Industrial Manufacturing Robotics</p>
                 </div>
-                
-                <nav class="footer-section" aria-label="Footer navigatie">
-                    <h4>Navigatie</h4>
-                    <ul>
-                        <li><a href="diensten.html">Diensten</a></li>
-                        <li><a href="projecten.html">Projecten</a></li>
-                        <li><a href="industrieen.html">Industrieën</a></li>
-                        <li><a href="proces.html">Proces</a></li>
-                        <li><a href="over-ons.html">Over Ons</a></li>
-                    </ul>
+                <nav class="footer-links">
+                    <div class="footer-column">
+                        <h3>Diensten</h3>
+                        <ul>
+                            <li><a href="diensten.html#maatwerk">Maatwerk Robotica</a></li>
+                            <li><a href="diensten.html#vision">Vision Systemen</a></li>
+                            <li><a href="diensten.html#refurbishment">Refurbishment</a></li>
+                            <li><a href="diensten.html#service">Service & SLA</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Bedrijf</h3>
+                        <ul>
+                            <li><a href="over-ons.html">Over Ons</a></li>
+                            <li><a href="projecten.html">Projecten</a></li>
+                            <li><a href="industrieen.html">Industrieën</a></li>
+                            <li><a href="proces.html">Proces</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                        </ul>
+                    </div>
                 </nav>
-                
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <address>
-                        <p>Email: <a href="mailto:info@aim-robotics.nl">info@aim-robotics.nl</a></p>
-                        <p>Telefoon: <a href="tel:+31123456789">+31 (0)12 345 6789</a></p>
-                    </address>
-                </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 AIM-Robotics. Alle rechten voorbehouden.</p>
+                <p>&copy; 2025 AIM-Robotics. Alle rechten voorbehouden.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="back-to-top" aria-label="Terug naar boven">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
-
-    <script src="js/accessibility.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Simple filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const cards = document.querySelectorAll('.project-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = '';
+                        card.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
