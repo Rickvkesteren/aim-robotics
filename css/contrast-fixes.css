@@ -341,7 +341,7 @@
 
 /* ========== Loader ========== */
 .loader-text {
-    color: var(--text-dark);
+    color: #FFFFFF;
 }
 
 .loader-text span {
