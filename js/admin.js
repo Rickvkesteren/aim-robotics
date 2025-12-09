@@ -703,6 +703,60 @@ class LiveEditor {
                     </button>
                     <small>Versleep, vergroot en pas alles aan</small>
                 </div>
+                
+                <div class="admin-section-title">📊 Optimalisatie & Analytics</div>
+                <div class="admin-optimization-grid">
+                    <button class="optimization-btn" data-action="analytics" title="Google Analytics 4 instellen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10"/>
+                            <path d="M12 20V4"/>
+                            <path d="M6 20v-6"/>
+                        </svg>
+                        <span>Analytics</span>
+                        <small>GA4 Tracking</small>
+                    </button>
+                    <button class="optimization-btn" data-action="heatmap" title="Heatmap tracking instellen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        <span>Heatmaps</span>
+                        <small>Microsoft Clarity</small>
+                    </button>
+                    <button class="optimization-btn" data-action="conversion" title="Conversie tracking">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <span>Conversies</span>
+                        <small>Form tracking</small>
+                    </button>
+                    <button class="optimization-btn" data-action="bundle-css" title="CSS bestanden bundelen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M8 7h8"/>
+                            <path d="M8 11h8"/>
+                            <path d="M8 15h5"/>
+                        </svg>
+                        <span>CSS Bundle</span>
+                        <small>10+ bestanden</small>
+                    </button>
+                    <button class="optimization-btn" data-action="add-video" title="Video toevoegen aan project">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
+                        <span>Video</span>
+                        <small>Project media</small>
+                    </button>
+                    <button class="optimization-btn" data-action="performance" title="Performance check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        <span>Snelheid</span>
+                        <small>Performance</small>
+                    </button>
+                </div>
             </div>
             <div class="admin-panel-actions">
                 <button class="admin-btn admin-btn-save" title="Wijzigingen opslaan">
@@ -782,6 +836,736 @@ class LiveEditor {
                 this.showNotification('🎨 Drag & Drop Editor geactiveerd!', 'success');
             }
         });
+        
+        // Bind optimization buttons
+        panel.querySelectorAll('.optimization-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.handleOptimization(btn.dataset.action));
+        });
+    }
+    
+    // Handle optimization actions
+    handleOptimization(action) {
+        switch(action) {
+            case 'analytics':
+                this.showAnalyticsModal();
+                break;
+            case 'heatmap':
+                this.showHeatmapModal();
+                break;
+            case 'conversion':
+                this.showConversionModal();
+                break;
+            case 'bundle-css':
+                this.showCSSBundleModal();
+                break;
+            case 'add-video':
+                this.showVideoModal();
+                break;
+            case 'performance':
+                this.showPerformanceCheck();
+                break;
+        }
+    }
+    
+    // Analytics Modal
+    showAnalyticsModal() {
+        const modal = this.createOptimizationModal('analytics', '📊 Google Analytics 4', `
+            <div class="opt-modal-intro">
+                <p>Voeg Google Analytics 4 toe om bezoekersgedrag te meten.</p>
+            </div>
+            <div class="opt-form-group">
+                <label>GA4 Measurement ID</label>
+                <input type="text" id="ga4-id" placeholder="G-XXXXXXXXXX" class="opt-input">
+                <small>Vind je ID in Google Analytics → Admin → Data Streams</small>
+            </div>
+            <div class="opt-form-group">
+                <label>Track Events</label>
+                <div class="opt-checkbox-group">
+                    <label><input type="checkbox" checked> Paginaweergaven</label>
+                    <label><input type="checkbox" checked> Klik events</label>
+                    <label><input type="checkbox" checked> Scroll diepte</label>
+                    <label><input type="checkbox" checked> Formulier submits</label>
+                </div>
+            </div>
+            <div class="opt-code-preview">
+                <label>Code Preview:</label>
+                <pre><code>&lt;!-- Google Analytics 4 --&gt;
+&lt;script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+&lt;/script&gt;</code></pre>
+            </div>
+        `);
+        
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            const gaId = modal.querySelector('#ga4-id').value.trim();
+            if (gaId && gaId.startsWith('G-')) {
+                this.installGA4(gaId);
+                this.closeOptimizationModal(modal);
+            } else {
+                this.showNotification('⚠️ Voer een geldig GA4 ID in (G-XXXXXXXXXX)', 'error');
+            }
+        });
+    }
+    
+    // Heatmap Modal
+    showHeatmapModal() {
+        const modal = this.createOptimizationModal('heatmap', '🎯 Heatmaps & Sessie Recordings', `
+            <div class="opt-modal-intro">
+                <p>Zie waar bezoekers klikken en hoe ze door je site navigeren.</p>
+            </div>
+            <div class="opt-tabs">
+                <button class="opt-tab active" data-provider="clarity">Microsoft Clarity (Gratis)</button>
+                <button class="opt-tab" data-provider="hotjar">Hotjar</button>
+            </div>
+            <div class="opt-tab-content active" data-provider="clarity">
+                <div class="opt-form-group">
+                    <label>Clarity Project ID</label>
+                    <input type="text" id="clarity-id" placeholder="xxxxxxxxxx" class="opt-input">
+                    <small>Gratis tool van Microsoft. <a href="https://clarity.microsoft.com" target="_blank">Maak account aan →</a></small>
+                </div>
+                <div class="opt-features">
+                    <div class="opt-feature">✓ Heatmaps</div>
+                    <div class="opt-feature">✓ Session recordings</div>
+                    <div class="opt-feature">✓ Scroll maps</div>
+                    <div class="opt-feature">✓ 100% Gratis</div>
+                </div>
+            </div>
+            <div class="opt-tab-content" data-provider="hotjar">
+                <div class="opt-form-group">
+                    <label>Hotjar Site ID</label>
+                    <input type="text" id="hotjar-id" placeholder="1234567" class="opt-input">
+                    <small><a href="https://hotjar.com" target="_blank">Hotjar.com →</a> (Beperkt gratis plan)</small>
+                </div>
+            </div>
+        `);
+        
+        // Tab switching
+        modal.querySelectorAll('.opt-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                modal.querySelectorAll('.opt-tab').forEach(t => t.classList.remove('active'));
+                modal.querySelectorAll('.opt-tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                modal.querySelector(`.opt-tab-content[data-provider="${tab.dataset.provider}"]`).classList.add('active');
+            });
+        });
+        
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            const activeTab = modal.querySelector('.opt-tab.active').dataset.provider;
+            if (activeTab === 'clarity') {
+                const clarityId = modal.querySelector('#clarity-id').value.trim();
+                if (clarityId) {
+                    this.installClarity(clarityId);
+                    this.closeOptimizationModal(modal);
+                } else {
+                    this.showNotification('⚠️ Voer een Clarity Project ID in', 'error');
+                }
+            } else {
+                const hotjarId = modal.querySelector('#hotjar-id').value.trim();
+                if (hotjarId) {
+                    this.installHotjar(hotjarId);
+                    this.closeOptimizationModal(modal);
+                } else {
+                    this.showNotification('⚠️ Voer een Hotjar Site ID in', 'error');
+                }
+            }
+        });
+    }
+    
+    // Conversion Tracking Modal
+    showConversionModal() {
+        const modal = this.createOptimizationModal('conversion', '✓ Conversie Tracking', `
+            <div class="opt-modal-intro">
+                <p>Track wanneer bezoekers belangrijke acties uitvoeren.</p>
+            </div>
+            <div class="opt-form-group">
+                <label>Te tracken conversies:</label>
+                <div class="opt-checkbox-group">
+                    <label><input type="checkbox" id="conv-form" checked> Contactformulier verzonden</label>
+                    <label><input type="checkbox" id="conv-phone" checked> Telefoonnummer geklikt</label>
+                    <label><input type="checkbox" id="conv-email" checked> E-mail geklikt</label>
+                    <label><input type="checkbox" id="conv-cta" checked> CTA button geklikt</label>
+                    <label><input type="checkbox" id="conv-download"> PDF/bestand gedownload</label>
+                </div>
+            </div>
+            <div class="opt-info-box">
+                <strong>💡 Tip:</strong> Zorg dat Google Analytics 4 eerst is geïnstalleerd voor conversie tracking.
+            </div>
+        `);
+        
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            this.installConversionTracking({
+                form: modal.querySelector('#conv-form').checked,
+                phone: modal.querySelector('#conv-phone').checked,
+                email: modal.querySelector('#conv-email').checked,
+                cta: modal.querySelector('#conv-cta').checked,
+                download: modal.querySelector('#conv-download').checked
+            });
+            this.closeOptimizationModal(modal);
+        });
+    }
+    
+    // CSS Bundle Modal
+    showCSSBundleModal() {
+        const cssFiles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+            .map(link => link.href.split('/').pop())
+            .filter(name => name && !name.includes('fonts.googleapis'));
+        
+        const modal = this.createOptimizationModal('css-bundle', '📦 CSS Bundelen', `
+            <div class="opt-modal-intro">
+                <p>Je hebt momenteel <strong>${cssFiles.length} CSS bestanden</strong>. Bundelen verbetert laadtijd.</p>
+            </div>
+            <div class="opt-form-group">
+                <label>Huidige CSS bestanden:</label>
+                <div class="opt-file-list">
+                    ${cssFiles.map(f => `<div class="opt-file-item"><span>📄</span> ${f}</div>`).join('')}
+                </div>
+            </div>
+            <div class="opt-info-box warning">
+                <strong>⚠️ Let op:</strong> CSS bundelen vereist een build process. Dit genereert instructies voor handmatige implementatie.
+            </div>
+            <div class="opt-form-group">
+                <label>Bundle opties:</label>
+                <div class="opt-checkbox-group">
+                    <label><input type="checkbox" id="css-minify" checked> Minify CSS (verkleinen)</label>
+                    <label><input type="checkbox" id="css-critical" checked> Critical CSS extraheren</label>
+                    <label><input type="checkbox" id="css-unused"> Unused CSS verwijderen</label>
+                </div>
+            </div>
+        `);
+        
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            this.generateCSSBundleInstructions({
+                files: cssFiles,
+                minify: modal.querySelector('#css-minify').checked,
+                critical: modal.querySelector('#css-critical').checked,
+                unused: modal.querySelector('#css-unused').checked
+            });
+            this.closeOptimizationModal(modal);
+        });
+    }
+    
+    // Video Modal
+    showVideoModal() {
+        const modal = this.createOptimizationModal('video', '🎬 Video Toevoegen', `
+            <div class="opt-modal-intro">
+                <p>Voeg een video toe aan een project of pagina.</p>
+            </div>
+            <div class="opt-form-group">
+                <label>Video Bron</label>
+                <div class="opt-radio-group">
+                    <label><input type="radio" name="video-source" value="youtube" checked> YouTube</label>
+                    <label><input type="radio" name="video-source" value="vimeo"> Vimeo</label>
+                    <label><input type="radio" name="video-source" value="local"> Lokaal bestand</label>
+                </div>
+            </div>
+            <div class="opt-form-group">
+                <label>Video URL of ID</label>
+                <input type="text" id="video-url" placeholder="https://youtube.com/watch?v=... of video ID" class="opt-input">
+            </div>
+            <div class="opt-form-group">
+                <label>Titel / Alt tekst</label>
+                <input type="text" id="video-title" placeholder="Freesrobot in actie - Tunnel project" class="opt-input">
+            </div>
+            <div class="opt-form-group">
+                <label>Toevoegen aan:</label>
+                <select id="video-location" class="opt-select">
+                    <option value="freesrobot">Projecten → Freesrobot</option>
+                    <option value="current">Huidige pagina</option>
+                    <option value="custom">Aangepaste locatie</option>
+                </select>
+            </div>
+            <div class="opt-form-group">
+                <label>Weergave stijl:</label>
+                <select id="video-style" class="opt-select">
+                    <option value="embedded">Embedded (in pagina)</option>
+                    <option value="lightbox">Lightbox (popup)</option>
+                    <option value="background">Background video (muted)</option>
+                </select>
+            </div>
+        `);
+        
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            const videoUrl = modal.querySelector('#video-url').value.trim();
+            const videoTitle = modal.querySelector('#video-title').value.trim();
+            const location = modal.querySelector('#video-location').value;
+            const style = modal.querySelector('#video-style').value;
+            const source = modal.querySelector('input[name="video-source"]:checked').value;
+            
+            if (videoUrl) {
+                this.addVideoToPage({ url: videoUrl, title: videoTitle, location, style, source });
+                this.closeOptimizationModal(modal);
+            } else {
+                this.showNotification('⚠️ Voer een video URL in', 'error');
+            }
+        });
+    }
+    
+    // Performance Check
+    showPerformanceCheck() {
+        const modal = this.createOptimizationModal('performance', '⚡ Performance Check', `
+            <div class="opt-modal-intro">
+                <p>Analyseer de prestaties van deze pagina.</p>
+            </div>
+            <div class="opt-loading">
+                <div class="opt-spinner"></div>
+                <p>Analyseren...</p>
+            </div>
+            <div class="opt-results" style="display:none;">
+                <div class="opt-score-container">
+                    <div class="opt-score" id="perf-score">--</div>
+                    <span>Performance Score</span>
+                </div>
+                <div class="opt-metrics">
+                    <div class="opt-metric">
+                        <span class="opt-metric-label">DOM Elementen</span>
+                        <span class="opt-metric-value" id="metric-dom">--</span>
+                    </div>
+                    <div class="opt-metric">
+                        <span class="opt-metric-label">CSS Bestanden</span>
+                        <span class="opt-metric-value" id="metric-css">--</span>
+                    </div>
+                    <div class="opt-metric">
+                        <span class="opt-metric-label">JS Bestanden</span>
+                        <span class="opt-metric-value" id="metric-js">--</span>
+                    </div>
+                    <div class="opt-metric">
+                        <span class="opt-metric-label">Afbeeldingen</span>
+                        <span class="opt-metric-value" id="metric-img">--</span>
+                    </div>
+                    <div class="opt-metric">
+                        <span class="opt-metric-label">Lazy Loading</span>
+                        <span class="opt-metric-value" id="metric-lazy">--</span>
+                    </div>
+                </div>
+                <div class="opt-recommendations" id="perf-recommendations"></div>
+            </div>
+        `);
+        
+        // Run performance check
+        setTimeout(() => {
+            this.runPerformanceCheck(modal);
+        }, 500);
+        
+        modal.querySelector('.opt-modal-apply').textContent = 'Sluiten';
+        modal.querySelector('.opt-modal-apply').addEventListener('click', () => {
+            this.closeOptimizationModal(modal);
+        });
+    }
+    
+    // Create optimization modal template
+    createOptimizationModal(type, title, content) {
+        const existingModal = document.querySelector('.opt-modal');
+        if (existingModal) existingModal.remove();
+        
+        const modal = document.createElement('div');
+        modal.className = 'opt-modal';
+        modal.innerHTML = `
+            <div class="opt-modal-content">
+                <div class="opt-modal-header">
+                    <h3>${title}</h3>
+                    <button class="opt-modal-close">&times;</button>
+                </div>
+                <div class="opt-modal-body">
+                    ${content}
+                </div>
+                <div class="opt-modal-footer">
+                    <button class="opt-modal-cancel">Annuleren</button>
+                    <button class="opt-modal-apply">Toepassen</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Close handlers
+        modal.querySelector('.opt-modal-close').addEventListener('click', () => this.closeOptimizationModal(modal));
+        modal.querySelector('.opt-modal-cancel').addEventListener('click', () => this.closeOptimizationModal(modal));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) this.closeOptimizationModal(modal);
+        });
+        
+        setTimeout(() => modal.classList.add('active'), 10);
+        return modal;
+    }
+    
+    closeOptimizationModal(modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    }
+    
+    // Installation functions
+    installGA4(gaId) {
+        const code = `
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${gaId}');
+</script>`;
+        
+        localStorage.setItem('aim_ga4_code', code);
+        localStorage.setItem('aim_ga4_id', gaId);
+        this.showNotification('✅ GA4 code opgeslagen! Voeg toe aan <head> van alle pagina\'s.', 'success');
+        
+        // Show code to copy
+        this.showCodeCopyModal('Google Analytics 4', code);
+    }
+    
+    installClarity(clarityId) {
+        const code = `
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "${clarityId}");
+</script>`;
+        
+        localStorage.setItem('aim_clarity_code', code);
+        localStorage.setItem('aim_clarity_id', clarityId);
+        this.showNotification('✅ Clarity code opgeslagen!', 'success');
+        this.showCodeCopyModal('Microsoft Clarity', code);
+    }
+    
+    installHotjar(hotjarId) {
+        const code = `
+<!-- Hotjar Tracking -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:${hotjarId},hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>`;
+        
+        localStorage.setItem('aim_hotjar_code', code);
+        this.showNotification('✅ Hotjar code opgeslagen!', 'success');
+        this.showCodeCopyModal('Hotjar', code);
+    }
+    
+    installConversionTracking(options) {
+        let code = `
+<!-- Conversie Tracking -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {`;
+        
+        if (options.form) {
+            code += `
+    // Form submit tracking
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    'event_category': 'conversion',
+                    'event_label': this.id || 'contact_form'
+                });
+            }
+        });
+    });`;
+        }
+        
+        if (options.phone) {
+            code += `
+    // Phone click tracking
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'phone_click', {
+                    'event_category': 'conversion',
+                    'event_label': this.href
+                });
+            }
+        });
+    });`;
+        }
+        
+        if (options.email) {
+            code += `
+    // Email click tracking
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'email_click', {
+                    'event_category': 'conversion',
+                    'event_label': this.href
+                });
+            }
+        });
+    });`;
+        }
+        
+        if (options.cta) {
+            code += `
+    // CTA button tracking
+    document.querySelectorAll('.btn-primary, .cta-button, [class*="cta"]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'cta_click', {
+                    'event_category': 'conversion',
+                    'event_label': this.textContent.trim()
+                });
+            }
+        });
+    });`;
+        }
+        
+        code += `
+});
+</script>`;
+        
+        localStorage.setItem('aim_conversion_code', code);
+        this.showNotification('✅ Conversie tracking code opgeslagen!', 'success');
+        this.showCodeCopyModal('Conversie Tracking', code);
+    }
+    
+    generateCSSBundleInstructions(options) {
+        const instructions = `
+# CSS Bundle Instructies
+
+## Huidige bestanden (${options.files.length}):
+${options.files.map(f => `- ${f}`).join('\n')}
+
+## Aanbevolen aanpak:
+
+### Optie 1: Handmatig bundelen
+1. Combineer alle CSS in één bestand: \`css/bundle.css\`
+2. Verwijder individuele <link> tags
+3. Voeg toe: \`<link rel="stylesheet" href="css/bundle.css">\`
+
+### Optie 2: Build tool (aanbevolen)
+\`\`\`bash
+# Installeer PostCSS
+npm install postcss postcss-cli postcss-import cssnano
+
+# Maak postcss.config.js
+module.exports = {
+  plugins: [
+    require('postcss-import'),
+    ${options.minify ? "require('cssnano')({ preset: 'default' })" : ''}
+  ]
+}
+
+# Bundle command
+npx postcss css/main.css -o css/bundle.min.css
+\`\`\`
+
+${options.critical ? `### Critical CSS
+Gebruik https://www.npmjs.com/package/critical voor above-the-fold CSS.` : ''}
+
+${options.unused ? `### Unused CSS
+Gebruik PurgeCSS: https://purgecss.com/` : ''}
+`;
+        
+        this.showNotification('📋 CSS bundle instructies gegenereerd!', 'success');
+        this.showCodeCopyModal('CSS Bundle Instructies', instructions, 'markdown');
+    }
+    
+    addVideoToPage(options) {
+        let embedCode = '';
+        
+        if (options.source === 'youtube') {
+            const videoId = this.extractYouTubeId(options.url);
+            if (options.style === 'embedded') {
+                embedCode = `
+<div class="video-container">
+    <iframe 
+        src="https://www.youtube.com/embed/${videoId}" 
+        title="${options.title}"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div>`;
+            } else if (options.style === 'lightbox') {
+                embedCode = `
+<a href="https://www.youtube.com/watch?v=${videoId}" class="video-lightbox" data-title="${options.title}">
+    <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="${options.title}">
+    <span class="play-button">▶</span>
+</a>`;
+            }
+        } else if (options.source === 'vimeo') {
+            const vimeoId = options.url.match(/\d+/)?.[0] || options.url;
+            embedCode = `
+<div class="video-container">
+    <iframe 
+        src="https://player.vimeo.com/video/${vimeoId}" 
+        title="${options.title}"
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div>`;
+        } else {
+            embedCode = `
+<video controls class="video-player">
+    <source src="${options.url}" type="video/mp4">
+    Je browser ondersteunt geen video.
+</video>`;
+        }
+        
+        const cssCode = `
+/* Video Container Styles */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin: 24px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-lightbox {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.video-lightbox img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.video-lightbox:hover img {
+    transform: scale(1.02);
+}
+
+.video-lightbox .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(0,102,204,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.video-lightbox:hover .play-button {
+    background: #0066CC;
+    transform: translate(-50%, -50%) scale(1.1);
+}`;
+        
+        localStorage.setItem('aim_video_html', embedCode);
+        localStorage.setItem('aim_video_css', cssCode);
+        
+        this.showNotification('🎬 Video code gegenereerd!', 'success');
+        this.showCodeCopyModal('Video Embed Code', `<!-- HTML -->\n${embedCode}\n\n<!-- CSS -->\n${cssCode}`, 'html');
+    }
+    
+    extractYouTubeId(url) {
+        const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        return match ? match[1] : url;
+    }
+    
+    runPerformanceCheck(modal) {
+        const domElements = document.querySelectorAll('*').length;
+        const cssFiles = document.querySelectorAll('link[rel="stylesheet"]').length;
+        const jsFiles = document.querySelectorAll('script[src]').length;
+        const images = document.querySelectorAll('img').length;
+        const lazyImages = document.querySelectorAll('img[loading="lazy"]').length;
+        
+        // Calculate score
+        let score = 100;
+        if (domElements > 1500) score -= 15;
+        else if (domElements > 1000) score -= 10;
+        if (cssFiles > 5) score -= 10;
+        if (jsFiles > 5) score -= 10;
+        if (images > 20 && lazyImages < images * 0.5) score -= 15;
+        
+        // Update UI
+        modal.querySelector('.opt-loading').style.display = 'none';
+        modal.querySelector('.opt-results').style.display = 'block';
+        
+        const scoreEl = modal.querySelector('#perf-score');
+        scoreEl.textContent = score;
+        scoreEl.className = 'opt-score ' + (score >= 80 ? 'good' : score >= 60 ? 'medium' : 'poor');
+        
+        modal.querySelector('#metric-dom').textContent = domElements;
+        modal.querySelector('#metric-css').textContent = cssFiles;
+        modal.querySelector('#metric-js').textContent = jsFiles;
+        modal.querySelector('#metric-img').textContent = images;
+        modal.querySelector('#metric-lazy').textContent = `${lazyImages}/${images}`;
+        
+        // Recommendations
+        let recommendations = [];
+        if (cssFiles > 5) recommendations.push('📦 Bundle CSS bestanden voor snellere laadtijd');
+        if (images > 10 && lazyImages < images * 0.8) recommendations.push('🖼️ Voeg lazy loading toe aan meer afbeeldingen');
+        if (domElements > 1000) recommendations.push('🔧 Verminder DOM complexiteit');
+        if (!document.querySelector('link[rel="preconnect"]')) recommendations.push('🔗 Voeg preconnect toe voor externe resources');
+        
+        const recEl = modal.querySelector('#perf-recommendations');
+        if (recommendations.length > 0) {
+            recEl.innerHTML = '<h4>Aanbevelingen:</h4><ul>' + 
+                recommendations.map(r => `<li>${r}</li>`).join('') + '</ul>';
+        } else {
+            recEl.innerHTML = '<p class="opt-success">✅ Geen kritieke problemen gevonden!</p>';
+        }
+    }
+    
+    showCodeCopyModal(title, code, type = 'html') {
+        const modal = document.createElement('div');
+        modal.className = 'opt-modal code-modal';
+        modal.innerHTML = `
+            <div class="opt-modal-content">
+                <div class="opt-modal-header">
+                    <h3>📋 ${title} - Code</h3>
+                    <button class="opt-modal-close">&times;</button>
+                </div>
+                <div class="opt-modal-body">
+                    <p>Kopieer onderstaande code en voeg toe aan je HTML:</p>
+                    <pre class="code-block"><code>${this.escapeHtml(code)}</code></pre>
+                </div>
+                <div class="opt-modal-footer">
+                    <button class="opt-modal-copy">📋 Kopieer naar klembord</button>
+                    <button class="opt-modal-close-btn">Sluiten</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        modal.querySelector('.opt-modal-close').addEventListener('click', () => modal.remove());
+        modal.querySelector('.opt-modal-close-btn').addEventListener('click', () => modal.remove());
+        modal.querySelector('.opt-modal-copy').addEventListener('click', () => {
+            navigator.clipboard.writeText(code).then(() => {
+                this.showNotification('📋 Code gekopieerd!', 'success');
+            });
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+        
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
     
     // Keyboard shortcut (Ctrl+Shift+E)
