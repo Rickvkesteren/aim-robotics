@@ -1369,3 +1369,119 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     background: #10b981;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
 }
+
+/* ============================================
+   OVER ONS - Story Grid
+   ============================================ */
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+.story-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.story-lead {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.6;
+}
+
+.story-content p {
+    font-size: 1.0625rem;
+    color: #475569;
+    line-height: 1.75;
+}
+
+.story-image {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 102, 204, 0.12);
+}
+
+.story-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================
+   OVER ONS - Values Grid
+   ============================================ */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+@media (max-width: 1024px) {
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.value-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(0, 102, 204, 0.12);
+    border-color: rgba(0, 102, 204, 0.15);
+}
+
+.value-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.value-icon svg {
+    width: 36px;
+    height: 36px;
+    stroke: white;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.value-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 16px;
+}
+
+.value-card p {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.7;
+}
