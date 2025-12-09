@@ -1098,6 +1098,23 @@ body:has(.projecten-hero) .navbar .hamburger span {
 .project-blog-card.featured {
     border: 2px solid #0066CC;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 8px 32px rgba(0, 102, 204, 0.08);
+}
+
+.project-blog-card.featured::before {
+    content: '⭐ Uitgelicht';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 100px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
 }
 
 @media (max-width: 900px) {
@@ -1205,12 +1222,14 @@ body:has(.projecten-hero) .navbar .hamburger span {
 }
 
 .project-industry {
-    padding: 4px 12px;
-    background: #f1f5f9;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #0066CC, #00A3FF);
     border-radius: 100px;
     font-size: 0.75rem;
-    font-weight: 600;
-    color: #475569;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .project-blog-content h3 {
@@ -1336,12 +1355,12 @@ body:has(.projecten-hero) .navbar .hamburger span {
 
 .compact-industry {
     display: inline-block;
-    padding: 4px 10px;
-    background: #f1f5f9;
+    padding: 5px 12px;
+    background: linear-gradient(135deg, #0066CC, #00A3FF);
     border-radius: 100px;
     font-size: 0.6875rem;
     font-weight: 700;
-    color: #64748b;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 10px;
