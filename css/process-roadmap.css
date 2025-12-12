@@ -116,7 +116,6 @@ body:has(.proces-hero) .navbar .hamburger span {
     text-transform: uppercase;
     letter-spacing: 3px;
     font-weight: 500;
-    animation: float 3s ease-in-out infinite;
 }
 
 .scroll-indicator svg {
@@ -124,11 +123,19 @@ body:has(.proces-hero) .navbar .hamburger span {
     height: 28px;
     stroke: rgba(255,255,255,0.6);
     stroke-width: 1.5;
+    animation: scrollDown 1.6s ease-in-out infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); opacity: 1; }
-    50% { transform: translateY(12px); opacity: 0.6; }
+@keyframes scrollDown {
+    0% { transform: translateY(0); opacity: 0.35; }
+    40% { transform: translateY(10px); opacity: 0.9; }
+    100% { transform: translateY(18px); opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-indicator svg {
+        animation: none;
+    }
 }
 
 /* ============================================

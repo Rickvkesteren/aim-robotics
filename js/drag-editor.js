@@ -6,6 +6,7 @@
 class DragEditor {
     constructor() {
         this.isDragMode = false;
+        this.isDocked = true;
         this.selectedElement = null;
         this.draggedElement = null;
         this.resizing = false;
@@ -28,6 +29,7 @@ class DragEditor {
         this.createPropertyPanel();
         this.createContextMenu();
         this.bindGlobalEvents();
+        this.loadSavedThemeVars();
         this.loadSavedStyles();
     }
     
@@ -124,9 +126,28 @@ class DragEditor {
         panel.innerHTML = `
             <div class="property-panel-header">
                 <span class="property-title">Eigenschappen</span>
-                <button class="property-close">&times;</button>
+                <div class="property-panel-actions">
+                    <button class="property-dock" title="Dock/undock editor" aria-label="Dock/undock editor">⧉</button>
+                    <button class="property-close">&times;</button>
+                </div>
             </div>
             <div class="property-panel-body">
+                <div class="property-section" id="theme-properties">
+                    <div class="property-section-title">Site Kleuren</div>
+                    <div class="property-grid">
+                        <div class="property-item">
+                            <label>Primary</label>
+                            <input type="color" id="theme-primary" class="property-color">
+                        </div>
+                        <div class="property-item">
+                            <label>Accent</label>
+                            <input type="color" id="theme-accent" class="property-color">
+                        </div>
+                        <div class="property-item full">
+                            <button type="button" id="theme-reset" class="property-btn">Reset kleuren</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="property-section">
                     <div class="property-section-title">Positie & Grootte</div>
                     <div class="property-grid">
@@ -339,6 +360,16 @@ class DragEditor {
         panel.querySelector('.property-close').addEventListener('click', () => {
             this.deselectElement();
         });
+
+        // Dock/undock button
+        panel.querySelector('.property-dock').addEventListener('click', () => {
+            this.isDocked = !this.isDocked;
+            document.body.classList.toggle('drag-editor-docked', this.isDragMode && this.isDocked);
+            this.propertyPanel.classList.toggle('undocked', !this.isDocked);
+        });
+
+        // Theme controls
+        this.setupThemeControls();
         
         // Bind property change events
         this.bindPropertyEvents();
@@ -705,8 +736,11 @@ class DragEditor {
         this.isDragMode = enabled;
         this.toolbar.style.display = enabled ? 'flex' : 'none';
         document.body.classList.toggle('drag-mode-active', enabled);
+        document.body.classList.toggle('drag-editor-docked', enabled && this.isDocked);
+        this.propertyPanel.classList.toggle('undocked', !this.isDocked);
         
         if (enabled) {
+            this.propertyPanel.style.display = 'block';
             this.enableDragMode();
         } else {
             this.disableDragMode();
@@ -1170,6 +1204,115 @@ class DragEditor {
         });
         this.updateSelectionBox();
         this.updatePropertyPanel();
+    }
+
+    normalizeHexColor(value) {
+        if (!value) return null;
+        const v = value.trim();
+        if (/^#([0-9a-fA-F]{6})$/.test(v)) return v;
+        if (/^#([0-9a-fA-F]{3})$/.test(v)) {
+            return '#' + v.slice(1).split('').map(ch => ch + ch).join('');
+        }
+        return null;
+    }
+
+    hexToRgb(hex) {
+        const normalized = this.normalizeHexColor(hex);
+        if (!normalized) return null;
+        const n = normalized.slice(1);
+        const r = parseInt(n.slice(0, 2), 16);
+        const g = parseInt(n.slice(2, 4), 16);
+        const b = parseInt(n.slice(4, 6), 16);
+        return { r, g, b };
+    }
+
+    shadeHex(hex, percent) {
+        const rgb = this.hexToRgb(hex);
+        if (!rgb) return hex;
+        const t = percent < 0 ? 0 : 255;
+        const p = Math.abs(percent) / 100;
+        const toHex = (c) => {
+            const v = Math.round((t - c) * p + c);
+            return v.toString(16).padStart(2, '0');
+        };
+        return `#${toHex(rgb.r)}${toHex(rgb.g)}${toHex(rgb.b)}`;
+    }
+
+    applyThemeVars(theme) {
+        const root = document.documentElement;
+
+        if (theme.primary) {
+            root.style.setProperty('--primary', theme.primary);
+            root.style.setProperty('--primary-dark', this.shadeHex(theme.primary, -25));
+            root.style.setProperty('--primary-light', this.shadeHex(theme.primary, 20));
+            const rgb = this.hexToRgb(theme.primary);
+            if (rgb) {
+                root.style.setProperty('--primary-glow', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`);
+            }
+            root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${theme.primary} 0%, ${this.shadeHex(theme.primary, 20)} 100%)`);
+        }
+
+        if (theme.accent) {
+            root.style.setProperty('--accent', theme.accent);
+            root.style.setProperty('--accent-dark', this.shadeHex(theme.accent, -20));
+            root.style.setProperty('--accent-light', this.shadeHex(theme.accent, 15));
+            const rgb = this.hexToRgb(theme.accent);
+            if (rgb) {
+                root.style.setProperty('--accent-glow', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`);
+            }
+            root.style.setProperty('--gradient-accent', `linear-gradient(135deg, ${theme.accent} 0%, ${this.shadeHex(theme.accent, 15)} 100%)`);
+        }
+    }
+
+    saveThemeVars(theme) {
+        localStorage.setItem('aim_theme_vars', JSON.stringify(theme));
+    }
+
+    loadSavedThemeVars() {
+        try {
+            const saved = localStorage.getItem('aim_theme_vars');
+            if (saved) {
+                const theme = JSON.parse(saved);
+                this.applyThemeVars(theme);
+            }
+        } catch (e) {
+            console.warn('Could not load saved theme vars:', e);
+        }
+    }
+
+    setupThemeControls() {
+        if (!this.propertyPanel) return;
+        const primaryInput = this.propertyPanel.querySelector('#theme-primary');
+        const accentInput = this.propertyPanel.querySelector('#theme-accent');
+        const resetBtn = this.propertyPanel.querySelector('#theme-reset');
+        if (!primaryInput || !accentInput || !resetBtn) return;
+
+        const computed = getComputedStyle(document.documentElement);
+        const currentPrimary = this.normalizeHexColor(computed.getPropertyValue('--primary')) || '#0066cc';
+        const currentAccent = this.normalizeHexColor(computed.getPropertyValue('--accent')) || '#c44900';
+
+        primaryInput.value = currentPrimary;
+        accentInput.value = currentAccent;
+
+        const onChange = () => {
+            const theme = {
+                primary: primaryInput.value,
+                accent: accentInput.value
+            };
+            this.applyThemeVars(theme);
+            this.saveThemeVars(theme);
+        };
+
+        primaryInput.oninput = onChange;
+        accentInput.oninput = onChange;
+
+        resetBtn.onclick = () => {
+            const theme = { primary: '#0066cc', accent: '#c44900' };
+            primaryInput.value = theme.primary;
+            accentInput.value = theme.accent;
+            this.applyThemeVars(theme);
+            this.saveThemeVars(theme);
+        };
     }
     
     // Save styles to localStorage

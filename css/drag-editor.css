@@ -13,6 +13,13 @@
     user-select: none;
 }
 
+/* Docked editor: houd panel volledig in beeld en schuif pagina opzij */
+@media (min-width: 900px) {
+    body.drag-editor-docked {
+        padding-right: 320px;
+    }
+}
+
 /* ============================================
    DRAG TOOLBAR
    ============================================ */
@@ -171,7 +178,8 @@
     top: 80px;
     right: 20px;
     width: 280px;
-    max-height: calc(100vh - 100px);
+    height: calc(100vh - 100px);
+    max-height: none;
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98));
     border: 1px solid rgba(0, 102, 204, 0.3);
     border-radius: 15px;
@@ -181,6 +189,40 @@
     backdrop-filter: blur(20px);
     z-index: 100000;
     overflow: hidden;
+}
+
+.property-panel.undocked {
+    width: min(380px, calc(100vw - 40px));
+}
+
+.property-panel-header {
+    gap: 10px;
+}
+
+.property-panel-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.property-dock {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #9ca3af;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.property-dock:hover {
+    background: rgba(0, 102, 204, 0.12);
+    border-color: rgba(0, 102, 204, 0.3);
+    color: white;
 }
 
 .property-panel-header {
@@ -220,7 +262,7 @@
 
 .property-panel-body {
     padding: 15px;
-    max-height: calc(100vh - 180px);
+    height: calc(100% - 58px);
     overflow-y: auto;
 }
 
@@ -333,7 +375,7 @@
     appearance: none;
     width: 16px;
     height: 16px;
-    background: #0066cc;
+    background: var(--primary, #0066cc);
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -341,6 +383,27 @@
 
 .property-range::-webkit-slider-thumb:hover {
     transform: scale(1.2);
+}
+
+.property-btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(0, 102, 204, 0.12);
+    border: 1px solid rgba(0, 102, 204, 0.22);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.property-btn:hover {
+    background: rgba(0, 102, 204, 0.18);
+    border-color: rgba(0, 102, 204, 0.32);
 }
 
 /* ============================================

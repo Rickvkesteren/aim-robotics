@@ -274,6 +274,10 @@ body:has(.diensten-hero) .navbar .hamburger span {
     gap: 32px;
 }
 
+.service-card.wide {
+    grid-column: 1 / -1;
+}
+
 @media (max-width: 1024px) {
     .services-showcase {
         grid-template-columns: 1fr;
@@ -296,7 +300,7 @@ body:has(.diensten-hero) .navbar .hamburger span {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #0066CC, #00A3FF);
+    background: var(--gradient-primary);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -321,7 +325,7 @@ body:has(.diensten-hero) .navbar .hamburger span {
 
 /* Featured Card */
 .service-card.featured {
-    background: linear-gradient(135deg, #0066CC 0%, #0052a3 100%);
+    background: var(--gradient-primary);
     border: none;
 }
 
@@ -360,7 +364,7 @@ body:has(.diensten-hero) .navbar .hamburger span {
 
 .service-card.featured .service-link {
     background: white;
-    color: #0066CC;
+    color: var(--primary);
 }
 
 .service-card.featured .service-link:hover {

@@ -1366,8 +1366,8 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 }
 
 .status-dot.active {
-    background: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    background: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
 }
 
 /* ============================================

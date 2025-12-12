@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initParticles();
     initContactForm();
     initSmoothScroll();
+    initScrollNudge();
     initBackToTop();
     initButtonRipple();
     initParallax();
@@ -325,6 +326,75 @@ function initSmoothScroll() {
             });
         });
     });
+}
+
+/* ============================================
+   SCROLL NUDGE (buffer / "there is more")
+   ============================================ */
+function initScrollNudge() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
+    const storageKey = 'aim_scroll_nudge_done';
+    try {
+        if (sessionStorage.getItem(storageKey) === '1') return;
+    } catch (e) {
+        // Ignore storage errors
+    }
+
+    let hasTriggered = false;
+    const trigger = () => {
+        if (hasTriggered) return;
+        if (window.scrollY > 10) return;
+
+        hasTriggered = true;
+        try {
+            sessionStorage.setItem(storageKey, '1');
+        } catch (e) {
+            // Ignore storage errors
+        }
+
+        hero.classList.remove('nudge');
+        requestAnimationFrame(() => {
+            hero.classList.add('nudge');
+        });
+
+        const onEnd = (e) => {
+            if (e.animationName !== 'heroNudge') return;
+            hero.classList.remove('nudge');
+            hero.removeEventListener('animationend', onEnd);
+        };
+
+        hero.addEventListener('animationend', onEnd);
+
+        // Fallback cleanup
+        setTimeout(() => {
+            hero.classList.remove('nudge');
+            hero.removeEventListener('animationend', onEnd);
+        }, 900);
+    };
+
+    window.addEventListener('wheel', function(e) {
+        if (e.deltaY > 0) trigger();
+    }, { passive: true });
+
+    let touchStartY = null;
+    window.addEventListener('touchstart', function(e) {
+        if (!e.touches || e.touches.length === 0) return;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function(e) {
+        if (touchStartY === null) return;
+        if (!e.touches || e.touches.length === 0) return;
+
+        const dy = touchStartY - e.touches[0].clientY;
+        if (dy > 10) trigger();
+    }, { passive: true });
 }
 
 /* ============================================

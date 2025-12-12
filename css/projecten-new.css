@@ -1213,7 +1213,7 @@ body:has(.projecten-hero) .navbar .hamburger span {
 .project-client {
     font-size: 0.875rem;
     font-weight: 700;
-    color: #0066CC;
+    color: var(--primary);
 }
 
 .project-year {
@@ -1223,7 +1223,7 @@ body:has(.projecten-hero) .navbar .hamburger span {
 
 .project-industry {
     padding: 6px 14px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: var(--gradient-primary);
     border-radius: 100px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -1267,7 +1267,7 @@ body:has(.projecten-hero) .navbar .hamburger span {
     content: '';
     width: 4px;
     height: 4px;
-    background: #0066CC;
+    background: var(--primary);
     border-radius: 50%;
 }
 
@@ -1291,7 +1291,41 @@ body:has(.projecten-hero) .navbar .hamburger span {
     border-radius: 100px;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #0066CC;
+    color: var(--primary);
+}
+
+.project-blog-cta {
+    margin-top: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(0, 102, 204, 0.08);
+    border: 1px solid rgba(0, 102, 204, 0.18);
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.project-blog-cta svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    transition: transform 0.2s ease;
+}
+
+.project-blog-cta:hover {
+    background: rgba(0, 102, 204, 0.12);
+    border-color: rgba(0, 102, 204, 0.28);
+    transform: translateY(-1px);
+}
+
+.project-blog-cta:hover svg {
+    transform: translateX(3px);
 }
 
 /* ============================================
@@ -1403,6 +1437,6 @@ body:has(.projecten-hero) .navbar .hamburger span {
 }
 
 .status-dot.active {
-    background: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    background: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
 }
