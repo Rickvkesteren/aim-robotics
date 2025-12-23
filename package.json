@@ -1,0 +1,13 @@
+{
+  "name": "aim-robotics-website",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Static AIM-Robotics website (dev tooling only)",
+  "scripts": {
+    "dev": "live-server --port=5173 --open=index.html",
+    "serve": "live-server --port=5173 --open=index.html --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

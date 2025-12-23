@@ -18,7 +18,7 @@
 
 .skip-link:focus {
     top: 0;
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 2px;
 }
 
@@ -37,7 +37,7 @@
 
 /* Focus Visible Styles - High Contrast */
 *:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 2px;
     border-radius: 2px;
 }
@@ -53,22 +53,40 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 2px;
 }
 
 /* Navigation Focus Styles */
 .nav-link:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 4px;
-    background: rgba(255, 107, 53, 0.1);
+    background: transparent;
 }
 
 /* Button Focus Styles with Better Contrast */
 .btn:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 4px;
-    box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.2);
+    box-shadow: 0 0 0 3px var(--primary), var(--shadow-lg);
+}
+
+/* Blue buttons on white backgrounds: black focus ring for clear boundary */
+.btn-primary:focus-visible {
+    outline-color: var(--text-dark);
+    box-shadow: 0 0 0 3px var(--text-dark), var(--shadow-lg);
+}
+
+/* Blue buttons on dark backgrounds: white focus ring for contrast */
+.hero .btn-primary:focus-visible,
+.cta-section .btn-primary:focus-visible {
+    outline-color: var(--text-white);
+    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+}
+
+/* Header nav CTA: keep blue accent like other nav links */
+.nav-link.cta-button:focus-visible {
+    outline-color: var(--primary);
 }
 
 /* Placeholder Contrast - WCAG AA (4.5:1) */
@@ -131,9 +149,9 @@ select:valid {
 
 /* Select focus state */
 select:focus {
-    outline: 3px solid #0066CC !important;
+    outline: 3px solid var(--primary) !important;
     outline-offset: 2px !important;
-    border-color: #0066CC !important;
+    border-color: var(--primary) !important;
 }
 
 /* Select hover state */
@@ -155,6 +173,7 @@ select:hover {
 .form-group.has-error select {
     border-color: #dc3545;
     background-color: #fff5f5;
+    color: var(--text-dark) !important;
 }
 
 .form-group.has-error label {
@@ -172,6 +191,21 @@ abbr[title] {
 body {
     color: #1a1a1a;
     background: #ffffff;
+}
+
+/* Homepage contact form: prevent admin.css form styles bleeding into public form */
+#contact .form-group input,
+#contact .form-group select,
+#contact .form-group textarea {
+    background: var(--bg-white) !important;
+    color: var(--text-dark) !important;
+    border: 2px solid rgba(0, 102, 204, 0.3) !important;
+}
+
+#contact .form-group input:focus,
+#contact .form-group select:focus,
+#contact .form-group textarea:focus {
+    background: var(--bg-white) !important;
 }
 
 /* Link Contrast */
@@ -202,13 +236,14 @@ a:focus {
 }
 
 .hamburger:hover {
-    background: rgba(255, 107, 53, 0.1);
+    background: transparent;
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .hamburger:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 2px;
-    border-color: #FF6B35;
+    border-color: var(--primary);
 }
 
 .hamburger[aria-expanded="true"] span:nth-child(1) {
@@ -225,7 +260,7 @@ a:focus {
 
 /* Back to Top Button */
 .back-to-top:focus-visible {
-    outline: 3px solid #FF6B35;
+    outline: 3px solid var(--primary);
     outline-offset: 4px;
     transform: translateY(-5px) scale(1.1);
 }
@@ -367,6 +402,10 @@ textarea:disabled {
 
 /* Keyboard Navigation Indicator */
 body.user-is-tabbing *:focus {
-    outline: 3px solid #FF6B35 !important;
-    outline-offset: 2px !important;
+    outline: none;
+}
+
+body.user-is-tabbing *:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
 }

@@ -207,6 +207,9 @@ function createParticle(container) {
 function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
+
+    // accessibility.js provides WCAG-friendly validation and submission UX
+    if (form.dataset && form.dataset.a11yValidation === 'true') return;
     
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -514,9 +517,8 @@ function initParallax() {
     const parallaxElements = document.querySelectorAll('[data-parallax]');
     const heroContent = document.querySelector('.hero-content');
     const heroVideo = document.querySelector('.hero-video');
-    
-    // Create parallax layers
-    createParallaxLayers();
+ 
+    // Decorative parallax blob layers disabled to keep backgrounds neutral.
     
     window.addEventListener('scroll', throttle(function() {
         const scrolled = window.pageYOffset;
@@ -563,19 +565,8 @@ function initParallax() {
 }
 
 function createParallaxLayers() {
-    // Add floating geometric shapes to sections
-    const sections = document.querySelectorAll('.diensten, .projecten, .industrieen');
-    
-    sections.forEach(section => {
-        const layer = document.createElement('div');
-        layer.className = 'parallax-layer';
-        layer.innerHTML = `
-            <div class="parallax-shape shape-1"></div>
-            <div class="parallax-shape shape-2"></div>
-            <div class="parallax-shape shape-3"></div>
-        `;
-        section.appendChild(layer);
-    });
+    // Intentionally disabled.
+    return;
 }
 
 /* ============================================

@@ -1288,8 +1288,8 @@ class DragEditor {
         if (!primaryInput || !accentInput || !resetBtn) return;
 
         const computed = getComputedStyle(document.documentElement);
-        const currentPrimary = this.normalizeHexColor(computed.getPropertyValue('--primary')) || '#0066cc';
-        const currentAccent = this.normalizeHexColor(computed.getPropertyValue('--accent')) || '#c44900';
+        const currentPrimary = this.normalizeHexColor(computed.getPropertyValue('--primary')) || '#0066ff';
+        const currentAccent = this.normalizeHexColor(computed.getPropertyValue('--accent')) || '#6b7280';
 
         primaryInput.value = currentPrimary;
         accentInput.value = currentAccent;
@@ -1307,7 +1307,7 @@ class DragEditor {
         accentInput.oninput = onChange;
 
         resetBtn.onclick = () => {
-            const theme = { primary: '#0066cc', accent: '#c44900' };
+            const theme = { primary: '#0066ff', accent: '#6b7280' };
             primaryInput.value = theme.primary;
             accentInput.value = theme.accent;
             this.applyThemeVars(theme);

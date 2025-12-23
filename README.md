@@ -41,6 +41,38 @@ AIM-robotics/
 3. Voor de admin editor: druk op `Ctrl+Shift+E` of klik op het tandwiel icoon
 4. Login met wachtwoord: `aim2024`
 
+## 🧪 Development (live preview)
+
+Als je tijdens het editen een live preview met automatische refresh wilt:
+
+### Optie A: Python (aanrader, geen Node/pip nodig)
+
+1. Start de dev server:
+
+    - `python3 devserver.py`
+
+2. Open in je browser:
+
+    - `http://127.0.0.1:5173/index.html`
+
+#### VS Code Simple Browser
+
+- Start de server (terminal of via Task):
+    - `Terminal -> Run Task -> HTML: Live Preview (Python devserver)`
+- Open Simple Browser:
+    - `Ctrl+Shift+P` → `Simple Browser: Show`
+    - URL: `http://127.0.0.1:5173/index.html`
+
+### Optie B: Node (als je Node/npm geïnstalleerd hebt)
+
+1. Installeer dependencies:
+
+    - `npm install`
+
+2. Start de dev server (met live reload):
+
+    - `npm run dev`
+
 ## 🎨 Admin Features
 
 - **Tekst bewerken** - Klik op tekst om te bewerken

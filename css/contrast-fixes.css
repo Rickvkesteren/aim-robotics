@@ -426,8 +426,8 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 .nav-link:focus-visible {
-    outline: 3px solid var(--primary) !important;
-    outline-offset: 2px !important;
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* ========== Additional Text Contrast Fixes ========== */

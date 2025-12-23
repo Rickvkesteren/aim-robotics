@@ -6,6 +6,28 @@
 (function() {
     'use strict';
 
+    // Mark decorative inline SVG icons as hidden from assistive tech
+    function markDecorativeSvgs() {
+        const svgs = document.querySelectorAll('svg');
+        svgs.forEach(svg => {
+            // Respect explicit accessibility attributes
+            if (svg.hasAttribute('aria-hidden') || svg.hasAttribute('aria-label') || svg.hasAttribute('aria-labelledby') || svg.hasAttribute('role')) {
+                return;
+            }
+
+            // If author provided <title> or <desc>, treat as meaningful
+            if (svg.querySelector('title, desc')) {
+                if (!svg.hasAttribute('role')) svg.setAttribute('role', 'img');
+                return;
+            }
+
+            svg.setAttribute('aria-hidden', 'true');
+            svg.setAttribute('focusable', 'false');
+        });
+    }
+
+    markDecorativeSvgs();
+
     // Track keyboard usage for focus styles
     function handleFirstTab(e) {
         if (e.keyCode === 9) {
@@ -93,11 +115,15 @@
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
+        // Prevent other scripts from attaching conflicting submit handlers
+        contactForm.dataset.a11yValidation = 'true';
+
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             let isValid = true;
             const nameInput = document.getElementById('name');
+            const companyInput = document.getElementById('company');
             const emailInput = document.getElementById('email');
             
             // Clear previous errors
@@ -106,6 +132,12 @@
             // Validate name
             if (!nameInput.value.trim()) {
                 showError(nameInput, 'name-error', 'Naam is verplicht');
+                isValid = false;
+            }
+
+            // Validate company
+            if (companyInput && !companyInput.value.trim()) {
+                showError(companyInput, 'company-error', 'Bedrijf is verplicht');
                 isValid = false;
             }
             
@@ -137,7 +169,7 @@
         });
         
         // Real-time validation
-        const requiredFields = contactForm.querySelectorAll('input[required], textarea[required]');
+        const requiredFields = contactForm.querySelectorAll('input[required], textarea[required], select[required]');
         requiredFields.forEach(field => {
             field.addEventListener('blur', function() {
                 validateField(this);
@@ -168,6 +200,14 @@
                 showError(field, errorId, 'E-mail is verplicht');
             } else if (!isValidEmail(field.value)) {
                 showError(field, errorId, 'Voer een geldig e-mailadres in');
+            } else {
+                clearFieldError(field, errorId);
+            }
+        }
+
+        if (field.id === 'company') {
+            if (!field.value.trim()) {
+                showError(field, errorId, 'Bedrijf is verplicht');
             } else {
                 clearFieldError(field, errorId);
             }
@@ -203,7 +243,7 @@
         errorMessages.forEach(error => error.textContent = '');
         formGroups.forEach(group => group.classList.remove('has-error'));
         
-        const inputs = contactForm.querySelectorAll('input[aria-invalid], textarea[aria-invalid]');
+        const inputs = contactForm.querySelectorAll('input[aria-invalid], textarea[aria-invalid], select[aria-invalid]');
         inputs.forEach(input => input.setAttribute('aria-invalid', 'false'));
     }
     
