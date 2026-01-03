@@ -17,7 +17,7 @@ PORT = int(os.environ.get("AIM_DEV_PORT", "5173"))
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 EXCLUDE_DIRS = {".git", "node_modules", "__pycache__"}
-POLL_INTERVAL_SECONDS = 0.5
+POLL_INTERVAL_SECONDS = 2.0
 
 _reload_lock = threading.Lock()
 _reload_cv = threading.Condition(_reload_lock)
@@ -65,11 +65,12 @@ def _watch_files() -> None:
     last_mtime = _compute_latest_mtime()
     while True:
         time.sleep(POLL_INTERVAL_SECONDS)
-        current_mtime = _compute_latest_mtime()
-        if current_mtime > last_mtime:
-            last_mtime = current_mtime
-            with _reload_lock:
-                _reload_version += 1
+        # Disable auto-reload to prevent infinite loops
+        # current_mtime = _compute_latest_mtime()
+        # if current_mtime > last_mtime:
+        #     last_mtime = current_mtime
+        #     with _reload_lock:
+        #         _reload_version += 1
 
 
 _RELOAD_SNIPPET = """
@@ -77,7 +78,7 @@ _RELOAD_SNIPPET = """
 (() => {
   const endpoint = '/__reload';
   let version = 0;
-    const intervalMs = 2000;
+    const intervalMs = 5000;
 
     async function pollOnce() {
         const res = await fetch(`${endpoint}?since=${version}`, { cache: 'no-store' });

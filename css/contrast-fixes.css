@@ -83,15 +83,17 @@
 }
 
 .btn-secondary {
-    background: rgba(255,255,255,0.2);
-    color: var(--text-on-dark-wcag) !important;
-    border: 2px solid rgba(255,255,255,0.4);
+    background: #428FE7;
+    color: #FFFFFF !important;
+    border: 2px solid #428FE7;
     font-weight: 600;
+    backdrop-filter: none;
 }
 
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.3);
-    border-color: rgba(255,255,255,0.6);
+    background: #0B1993;
+    border-color: #0B1993;
+    backdrop-filter: none;
 }
 
 .btn-outline {
@@ -112,13 +114,18 @@
     color: var(--text-on-primary-wcag) !important;
 }
 
+.cta-section .btn-primary:hover {
+    color: #0B1993 !important;
+}
+
 /* ========== Section Tags ========== */
 .section-tag {
-    color: var(--primary) !important;
-    background: rgba(0, 102, 204, 0.1);
-    border-radius: 6px;
-    padding: 8px 20px;
-    font-weight: 700;
+    color: #FFFFFF !important;
+    background: #0B1993;
+    border: 2px solid #428FE7;
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-weight: 600;
     /* Remove gradient text fill for better contrast */
     -webkit-text-fill-color: unset;
     background-clip: unset;
@@ -270,8 +277,9 @@
 }
 
 .proces .section-tag {
-    color: var(--primary-light) !important;
-    background: rgba(0, 102, 204, 0.15) !important;
+    color: #FFFFFF !important;
+    background: #0B1993 !important;
+    border: 2px solid #428FE7 !important;
 }
 
 .proces h2 {
@@ -330,7 +338,7 @@
 
 /* ========== CTA Section ========== */
 .cta-section {
-    background: var(--gradient-primary);
+    background: #0B1993;
     color: var(--text-on-primary-wcag);
 }
 
@@ -341,11 +349,11 @@
 
 /* ========== Loader ========== */
 .loader-text {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .loader-text span {
-    color: var(--primary);
+    color: #428FE7;
 }
 
 /* ========== Back to Top ========== */

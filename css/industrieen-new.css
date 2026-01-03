@@ -15,7 +15,7 @@ body:has(.industrieen-hero) .navbar .nav-link {
 
 body:has(.industrieen-hero) .navbar .nav-link:hover,
 body:has(.industrieen-hero) .navbar .nav-link.active {
-    color: #0066CC !important;
+    color: #0B1993 !important;
 }
 
 body:has(.industrieen-hero) .navbar .logo-text {
@@ -23,11 +23,11 @@ body:has(.industrieen-hero) .navbar .logo-text {
 }
 
 body:has(.industrieen-hero) .navbar .logo-text .accent {
-    color: #0066CC !important;
+    color: #0B1993 !important;
 }
 
 body:has(.industrieen-hero) .navbar .cta-button {
-    background: linear-gradient(135deg, #0066CC, #00A3FF) !important;
+    background: linear-gradient(135deg, #0B1993, #428FE7) !important;
     color: white !important;
 }
 
@@ -100,7 +100,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .hero-badge svg {
     width: 18px;
     height: 18px;
-    stroke: #00A3FF;
+    stroke: #428FE7;
 }
 
 .industrieen-hero .hero-title {
@@ -113,7 +113,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 }
 
 .industrieen-hero .gradient-text {
-    background: linear-gradient(135deg, #00A3FF 0%, #0066CC 40%, #FF6B00 100%);
+    background: linear-gradient(135deg, #428FE7 0%, #0B1993 40%, #428FE7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -159,7 +159,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     border-radius: 100px;
     font-size: 0.8125rem;
     font-weight: 700;
-    color: #0066CC;
+    color: #0B1993;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 20px;
@@ -233,14 +233,14 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 
 .industry-card:hover .industry-icon {
     transform: scale(1.1) rotate(-5deg);
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-color: transparent;
 }
 
 .industry-icon svg {
     width: 28px;
     height: 28px;
-    stroke: #0066CC;
+    stroke: #0B1993;
     fill: none;
     transition: stroke 0.3s ease;
 }
@@ -293,7 +293,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     top: 8px;
     width: 6px;
     height: 6px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-radius: 50%;
 }
 
@@ -313,7 +313,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     border-radius: 100px;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #0066CC;
+    color: #0B1993;
     transition: all 0.2s ease;
 }
 
@@ -370,13 +370,13 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 }
 
 .cross-benefit:hover .cross-icon {
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
 }
 
 .cross-icon svg {
     width: 24px;
     height: 24px;
-    stroke: #0066CC;
+    stroke: #0B1993;
     fill: none;
     transition: stroke 0.3s ease;
 }
@@ -501,7 +501,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .mini-stat strong {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #0066CC;
+    color: #0B1993;
     font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -517,7 +517,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     gap: 8px;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #0066CC;
+    color: #0B1993;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -630,7 +630,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .journey-card .section-tag {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.15);
-    color: #00A3FF;
+    color: #428FE7;
 }
 
 .journey-card h2 {
@@ -685,7 +685,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .step-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -742,7 +742,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     gap: 12px;
     padding: 18px 36px;
     background: white;
-    color: #0066CC;
+    color: #0B1993;
     font-size: 1rem;
     font-weight: 700;
     border-radius: 14px;
@@ -793,7 +793,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
    CTA SECTIE
    ============================================ */
 .industrieen-cta {
-    background: linear-gradient(135deg, #0066CC 0%, #00A3FF 50%, #0077DD 100%);
+    background: linear-gradient(135deg, #0B1993 0%, #428FE7 50%, #0077DD 100%);
     padding: 100px 0;
     position: relative;
     overflow: hidden;
@@ -947,7 +947,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     top: 16px;
     left: 16px;
     padding: 6px 14px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     color: white;
     font-size: 0.75rem;
     font-weight: 700;
@@ -970,7 +970,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .showcase-client {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #0066CC;
+    color: #0B1993;
 }
 
 .showcase-year {
@@ -998,7 +998,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     gap: 8px;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #0066CC;
+    color: #0B1993;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -1078,7 +1078,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 }
 
 .project-blog-card.featured {
-    border: 2px solid #0066CC;
+    border: 2px solid #0B1993;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
@@ -1148,7 +1148,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 }
 
 .project-status.in-progress {
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     color: white;
 }
 
@@ -1178,7 +1178,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .project-client {
     font-size: 0.875rem;
     font-weight: 700;
-    color: #0066CC;
+    color: #0B1993;
 }
 
 .project-year {
@@ -1230,7 +1230,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     content: '';
     width: 4px;
     height: 4px;
-    background: #0066CC;
+    background: #0B1993;
     border-radius: 50%;
 }
 
@@ -1254,7 +1254,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     border-radius: 100px;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #0066CC;
+    color: #0B1993;
 }
 
 /* ============================================
@@ -1457,7 +1457,7 @@ body:has(.industrieen-hero) .navbar .hamburger span {
 .value-icon {
     width: 72px;
     height: 72px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -1485,3 +1485,4 @@ body:has(.industrieen-hero) .navbar .hamburger span {
     color: #64748b;
     line-height: 1.7;
 }
+

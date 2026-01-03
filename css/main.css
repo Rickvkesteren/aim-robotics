@@ -6,9 +6,9 @@
 /* ============================================
    HUISSTIJL / BRAND GUIDELINES
    
-    Primary: Blue #0066FF
-    Dark: Black #000000
-    Neutral: Gray #6B7280
+   Primary: AIM Blue #0066CC
+   Accent: Industrial Orange #FF6B00
+   Dark: Navy #0A1628
    
    Fonts:
    - Headings: Space Grotesk (600-800)
@@ -25,31 +25,31 @@
 :root {
     /* ========== HUISSTIJL KLEUREN ========== */
     
-    /* Primary - Brand Blue */
-    --primary: #0066FF;
-    --primary-dark: #0052CC;
-    --primary-light: #0066FF;
-    --primary-glow: rgba(0, 102, 255, 0.35);
-    --primary-cyan: #0066FF;
-    --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%);
+    /* Primary - AIM Blue */
+    --primary: #0B1993;
+    --primary-dark: #070F5C;
+    --primary-light: #1A2BB5;
+    --primary-glow: rgba(11, 25, 147, 0.4);
+    --primary-cyan: #428FE7;
+    --gradient-primary: linear-gradient(135deg, #0B1993 0%, #1A2BB5 100%);
     
-    /* Accent - Use primary (no orange in palette) */
-    --accent: var(--primary);
-    --accent-dark: var(--primary-dark);
-    --accent-light: var(--primary-light);
-    --accent-glow: var(--primary-glow);
-    --gradient-accent: var(--gradient-primary);
+    /* Accent - Light Blue (WCAG AA Compliant) */
+    --accent: #428FE7;  /* 3.2:1 contrast on white - WCAG AA for large text ✓ */
+    --accent-dark: #2A6FC7;
+    --accent-light: #5FA3EF;
+    --accent-glow: rgba(66, 143, 231, 0.4);
+    --gradient-accent: linear-gradient(135deg, #428FE7 0%, #5FA3EF 100%);
     
-    /* Dark Theme - Black */
-    --gradient-dark: linear-gradient(135deg, #000000 0%, #000000 100%);
+    /* Dark Theme - Navy */
+    --gradient-dark: linear-gradient(135deg, #0A1628 0%, #1a2942 100%);
     --gradient-shine: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
     
     /* ========== ACHTERGRONDEN ========== */
     --bg-white: #FFFFFF;
-    --bg-light: #FFFFFF;
-    --bg-subtle: #FFFFFF;
-    --bg-dark: #000000;
-    --bg-darker: #000000;
+    --bg-light: #F8FAFC;
+    --bg-subtle: #F1F5F9;
+    --bg-dark: #0A1628;
+    --bg-darker: #060F1D;
     --bg-glass: rgba(255, 255, 255, 0.85);
     --bg-glass-dark: rgba(10, 22, 40, 0.9);
     
@@ -57,16 +57,16 @@
     /* Minimum contrast 4.5:1 voor normale tekst */
     /* Minimum contrast 3:1 voor grote tekst (18px+) */
     
-    --text-dark: #000000;
-    --text-body: #6B7280;
-    --text-muted: #6B7280;
-    --text-light: #6B7280;
-    --text-subtle: #71717A;    /* 4.5:1 op wit - ✓ AA */
+    --text-dark: #000000;      /* 21:1 op wit - ✓ AAA */
+    --text-body: #000000;      /* 21:1 op wit - ✓ AAA */
+    --text-muted: #333333;     /* 12.6:1 op wit - ✓ AAA */
+    --text-light: #666666;     /* 5.7:1 op wit - ✓ AA */
+    --text-subtle: #666666;    /* 5.7:1 op wit - ✓ AA */
     --text-white: #FFFFFF;
     
     /* ========== BUTTON TEXT (WCAG) ========== */
-    --text-on-primary: #FFFFFF;    /* 4.9:1 op --primary - ✓ AA */
-    --text-on-accent: #FFFFFF;     /* 4.6:1 op --accent - ✓ AA */
+    --text-on-primary: #FFFFFF;    /* 10.8:1 op --primary #0B1993 - ✓ AAA */
+    --text-on-accent: #FFFFFF;     /* Accent gebruikt voor non-text content */
     --text-on-dark: #FFFFFF;       /* 15.3:1 op --bg-dark - ✓ AAA */
     
     /* ========== RANDEN ========== */
@@ -74,7 +74,7 @@
     --border-medium: #CBD5E1;
     --border-dark: rgba(45, 55, 72, 0.5);
     --border-glass: rgba(255, 255, 255, 0.2);
-    --border-focus: var(--primary);
+    --border-focus: #0B1993;
     
     /* ========== SCHADUWEN ========== */
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
@@ -83,7 +83,7 @@
     --shadow-xl: 0 20px 40px rgba(0,0,0,0.12), 0 30px 70px rgba(0,0,0,0.1);
     --shadow-glow: 0 0 40px var(--primary-glow);
     --shadow-glow-accent: 0 0 40px var(--accent-glow);
-    --shadow-colored: 0 10px 40px rgba(0, 102, 255, 0.15);
+    --shadow-colored: 0 10px 40px rgba(11, 25, 147, 0.2);
     
     /* ========== LAYOUT ========== */
     --container-width: 1200px;
@@ -112,7 +112,7 @@
     --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* ========== FOCUS STATES (Accessibility) ========== */
-    --focus-ring: 0 0 0 3px rgba(0, 102, 255, 0.4);
+    --focus-ring: 0 0 0 3px rgba(11, 25, 147, 0.4);
     --focus-ring-offset: 0 0 0 2px var(--bg-white), 0 0 0 4px var(--primary);
 }
 
@@ -145,7 +145,9 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: none;
+    background-image:
+        radial-gradient(circle at 25% 25%, rgba(11, 25, 147, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(66, 143, 231, 0.02) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
@@ -178,7 +180,7 @@ ul {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--primary);
     line-height: 1.2;
     letter-spacing: -0.02em;
 }
@@ -219,10 +221,7 @@ p:last-child {
 
 /* Gradient Text */
 .gradient-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 /* ============================================
@@ -242,11 +241,9 @@ p:last-child {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--bg-glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-glass);
-    opacity: 0.8;
+    background: #FFFFFF;
+    border-bottom: 2px solid var(--accent);
+    opacity: 1;
     transition: opacity var(--transition);
 }
 
@@ -288,10 +285,7 @@ p:last-child {
 }
 
 .logo-text .accent {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
 }
 
 /* Powered by ribbon below logo */
@@ -314,22 +308,22 @@ p:last-child {
     text-decoration: none;
     transition: all 0.3s ease;
     padding: 2px 6px;
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
-    border-left: 2px solid var(--primary-cyan);
+    background: linear-gradient(90deg, rgba(66, 143, 231, 0.15), transparent);
+    border-left: 2px solid var(--accent);
 }
 
 .powered-by-ribbon a:hover {
-    color: var(--primary-cyan);
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.3), transparent);
+    color: var(--accent);
+    background: linear-gradient(90deg, rgba(66, 143, 231, 0.3), transparent);
 }
 
 .navbar.scrolled .powered-by-ribbon a {
     color: rgba(0, 0, 0, 0.4);
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), transparent);
+    background: linear-gradient(90deg, rgba(66, 143, 231, 0.1), transparent);
 }
 
 .navbar.scrolled .powered-by-ribbon a:hover {
-    color: var(--primary-cyan);
+    color: var(--accent);
 }
 
 .nav-links {
@@ -353,7 +347,7 @@ p:last-child {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gradient-primary);
+    background: var(--primary);
     opacity: 0;
     transition: opacity var(--transition);
     z-index: -1;
@@ -378,10 +372,10 @@ p:last-child {
 }
 
 .nav-link.cta-button {
-    background: var(--gradient-primary);
-    color: var(--text-white) !important;
+    background: #0B1993;
+    color: #FFFFFF !important;
     margin-left: 8px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-link.cta-button::before {
@@ -396,13 +390,15 @@ p:last-child {
 }
 
 .nav-link.cta-button:hover {
+    background: #428FE7;
+    color: #FFFFFF !important;
     transform: translateY(-2px);
-    box-shadow: 0 0 0 3px var(--primary), var(--shadow-lg);
+    box-shadow: 0 0 0 3px #428FE7, var(--shadow-lg);
 }
 
 .nav-link.cta-button:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px var(--primary), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
 }
 
 /* Hamburger */
@@ -508,15 +504,14 @@ p:last-child {
     align-items: center;
     gap: 8px;
     padding: 10px 24px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: #0B1993;
+    border: 2px solid var(--accent);
     border-radius: 100px;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-white);
     letter-spacing: 0.5px;
     margin-bottom: 28px;
-    backdrop-filter: blur(10px);
     animation: fadeInDown 0.8s ease-out;
 }
 
@@ -524,7 +519,7 @@ p:last-child {
     content: '';
     width: 8px;
     height: 8px;
-    background: var(--primary-light);
+    background: var(--accent);
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
 }
@@ -556,10 +551,7 @@ p:last-child {
 
 .hero-title .highlight {
     position: relative;
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 55%, var(--primary-dark) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
     background-size: 200% 200%;
     animation: gradientShift 5s ease infinite;
 }
@@ -668,7 +660,7 @@ p:last-child {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--primary-light), transparent);
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
     animation: scrollDown 2s ease-in-out infinite;
 }
 
@@ -701,9 +693,10 @@ p:last-child {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gradient-shine);
+    background: transparent;
     transform: translateX(-100%);
     transition: transform 0.6s ease;
+    pointer-events: none;
 }
 
 .btn:hover::before {
@@ -711,25 +704,28 @@ p:last-child {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: var(--primary);
     color: var(--text-white);
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
+    opacity: 1;
 }
 
 .btn-primary:hover {
+    background: var(--primary-dark);
     transform: translateY(-3px);
-    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 1;
 }
 
-/* Blue button on white background: use black accent ring */
+/* Blue button on white background: use accent ring */
 section .btn-primary:hover {
-    box-shadow: 0 0 0 3px var(--text-dark), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
 }
 
-/* Hero/CTA are on dark backgrounds: keep the white accent ring */
+/* Hero/CTA are on dark backgrounds: keep the accent ring */
 .hero .btn-primary:hover,
 .cta-section .btn-primary:hover {
-    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
 }
 
 .btn-primary:active {
@@ -737,21 +733,24 @@ section .btn-primary:hover {
 }
 
 .btn-secondary {
-    background: rgba(255,255,255,0.08);
-    color: var(--text-white);
-    border: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
+    background: #428FE7;
+    color: #FFFFFF;
+    border: 2px solid #428FE7;
+    box-shadow: var(--shadow-md);
+    opacity: 1;
 }
 
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.4);
+    background: #0B1993;
+    color: #FFFFFF;
+    border: 2px solid #0B1993;
     transform: translateY(-3px);
-    box-shadow: 0 0 0 3px var(--primary), var(--shadow-lg);
+    box-shadow: 0 0 0 3px #428FE7, var(--shadow-lg);
+    opacity: 1;
 }
 
 .btn-outline {
-    background: transparent;
+    background: var(--bg-white);
     color: var(--primary);
     border: 2px solid var(--primary);
     position: relative;
@@ -762,7 +761,7 @@ section .btn-primary:hover {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gradient-primary);
+    background: var(--primary);
     z-index: -1;
     opacity: 0;
     transition: opacity var(--transition);
@@ -770,14 +769,14 @@ section .btn-primary:hover {
 
 .btn-outline:hover {
     color: var(--text-white);
-    border-color: transparent;
+    border-color: var(--primary);
     transform: translateY(-3px);
-    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
 }
 
-/* Outline becomes blue on hover; on white sections, use black accent ring */
+/* Outline becomes blue on hover; on white sections, use accent ring */
 section .btn-outline:hover {
-    box-shadow: 0 0 0 3px var(--text-dark), var(--shadow-lg);
+    box-shadow: 0 0 0 3px var(--accent), var(--shadow-lg);
 }
 
 .btn-outline:hover::after {
@@ -848,7 +847,7 @@ section .btn-outline:hover {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 .stats-bar::after {
@@ -858,7 +857,7 @@ section .btn-outline:hover {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 .stats-grid {
@@ -892,20 +891,14 @@ section .btn-outline:hover {
     font-family: var(--font-heading);
     font-size: 3.5rem;
     font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
     line-height: 1;
 }
 
 .stat-suffix {
     font-family: var(--font-heading);
     font-size: 2rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent);
 }
 
 .stat-label {
@@ -935,12 +928,12 @@ section .btn-outline:hover {
     align-items: center;
     gap: 8px;
     padding: 8px 18px;
-    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 163, 255, 0.05) 100%);
-    border: 1px solid rgba(0, 102, 204, 0.15);
+    background: #0B1993;
+    border: 2px solid #428FE7;
     border-radius: 100px;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--primary);
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 20px;
@@ -950,7 +943,7 @@ section .btn-outline:hover {
     content: '';
     width: 6px;
     height: 6px;
-    background: var(--primary);
+    background: #428FE7;
     border-radius: 50%;
 }
 
@@ -1042,7 +1035,7 @@ section .btn-outline:hover {
 
 .dienst-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-xl), var(--shadow-colored);
+    box-shadow: var(--shadow-xl), var(--shadow-md);
 }
 
 .dienst-card:hover::before {
@@ -1055,14 +1048,14 @@ section .btn-outline:hover {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 12px;
     font-family: var(--font-heading);
     font-size: 0.875rem;
     font-weight: 700;
     color: var(--text-white);
     margin-bottom: 24px;
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
 }
 
 .card-icon {
@@ -1071,10 +1064,10 @@ section .btn-outline:hover {
     justify-content: center;
     width: 52px;
     height: 52px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 14px;
     margin-bottom: 24px;
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
 }
 
 .card-icon svg {
@@ -1141,7 +1134,7 @@ section .btn-outline:hover {
     top: 8px;
     width: 8px;
     height: 8px;
-    background: var(--gradient-primary);
+    background: var(--accent);
     border-radius: 50%;
     transition: transform var(--transition);
 }
@@ -1220,14 +1213,14 @@ section .btn-outline:hover {
 
 .project-client {
     padding: 8px 16px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 8px;
     font-size: 0.8125rem;
     font-weight: 600;
     color: var(--text-white);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
 }
 
 .project-year {
@@ -1259,7 +1252,7 @@ section .btn-outline:hover {
     background: var(--bg-white);
     border-radius: 16px;
     border-left: 4px solid;
-    border-image: var(--gradient-primary) 1;
+    border-image-source: linear-gradient(90deg, var(--primary), var(--accent));border-image-slice: 1;
     box-shadow: var(--shadow-sm);
     transition: all var(--transition);
 }
@@ -1445,13 +1438,13 @@ section .btn-outline:hover {
 }
 
 .proces-content .section-tag {
-    background: rgba(0, 102, 204, 0.2);
-    border-color: rgba(0, 102, 204, 0.3);
-    color: var(--primary-light);
+    background: #0B1993;
+    border-color: #428FE7;
+    color: #FFFFFF;
 }
 
 .proces-content .section-tag::before {
-    background: var(--primary-light);
+    background: #428FE7;
 }
 
 .proces-content h2 {
@@ -1478,24 +1471,24 @@ section .btn-outline:hover {
     display: flex;
     gap: 28px;
     padding: 28px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #FFFFFF;
+    border: 2px solid #428FE7;
     border-radius: 20px;
-    backdrop-filter: blur(10px);
     transition: all var(--transition);
 }
 
 .step:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(0, 102, 204, 0.3);
+    background: #428FE7;
+    border-color: #428FE7;
     transform: translateX(10px);
+    box-shadow: var(--shadow-lg);
 }
 
 .step-number {
     flex-shrink: 0;
     width: 56px;
     height: 56px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -1504,18 +1497,24 @@ section .btn-outline:hover {
     font-size: 1.375rem;
     font-weight: 700;
     color: var(--text-white);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-md);
     transition: all var(--transition);
 }
 
 .step:hover .step-number {
     transform: scale(1.1) rotate(5deg);
+    background: #0B1993;
 }
 
 .step-content h4 {
     font-size: 1.25rem;
     color: var(--text-white);
     margin-bottom: 10px;
+    transition: all var(--transition);
+}
+
+.step:hover .step-content h4 {
+    color: #FFFFFF;
 }
 
 .step-content p {
@@ -1523,6 +1522,11 @@ section .btn-outline:hover {
     color: rgba(255,255,255,0.7);
     margin: 0;
     line-height: 1.6;
+    transition: all var(--transition);
+}
+
+.step:hover .step-content p {
+    color: #FFFFFF;
 }
 
 /* ============================================
@@ -1638,7 +1642,7 @@ section .btn-outline:hover {
     top: 8px;
     width: 8px;
     height: 8px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 50%;
     transition: all var(--transition);
 }
@@ -1678,7 +1682,7 @@ section .btn-outline:hover {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     transform: scaleX(0);
     transition: transform var(--transition);
 }
@@ -1696,12 +1700,12 @@ section .btn-outline:hover {
     width: 90px;
     height: 90px;
     margin: 0 auto 24px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
     transition: all var(--transition);
     position: relative;
 }
@@ -1712,7 +1716,7 @@ section .btn-outline:hover {
     inset: -4px;
     border-radius: 50%;
     border: 2px solid transparent;
-    background: var(--gradient-primary) border-box;
+    background: var(--accent);
     -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -1777,8 +1781,27 @@ section .btn-outline:hover {
 }
 
 .about-content .lead {
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #000000;
+}
+
+.about-content p {
     margin-bottom: 20px;
-    font-weight: 400;
+    line-height: 1.8;
+    color: #000000;
+}
+
+/* Laatste paragraaf subtiel laten opvallen */
+.about-content p:last-of-type {
+    font-size: 1.0625rem;
+    padding-left: 20px;
+    border-left: 3px solid #428FE7;
+    margin-top: 28px;
+    font-weight: 500;
+    color: #0B1993;
 }
 
 .about-content .about-bullets {
@@ -1821,7 +1844,7 @@ section .btn-outline:hover {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     transform: scaleX(0);
     transition: transform var(--transition);
 }
@@ -1838,7 +1861,7 @@ section .btn-outline:hover {
 .value-item h4 {
     font-size: 1rem;
     margin-bottom: 10px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1924,7 +1947,7 @@ section .btn-outline:hover {
     right: 32px;
     font-family: Georgia, serif;
     font-size: 6rem;
-    background: var(--gradient-primary);
+    background: var(--primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -2005,7 +2028,7 @@ section .btn-outline:hover {
 .author-avatar {
     width: 52px;
     height: 52px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2014,7 +2037,7 @@ section .btn-outline:hover {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-white);
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
 }
 
 .author-info {
@@ -2131,7 +2154,7 @@ section .btn-outline:hover {
 
 .partner-logo:hover .logo-placeholder {
     opacity: 1;
-    background: var(--gradient-primary);
+    background: var(--primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -2154,7 +2177,7 @@ section .btn-outline:hover {
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 800;
-    background: var(--gradient-primary);
+    background: var(--primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -2173,7 +2196,7 @@ section .btn-outline:hover {
    CTA SECTION - Gradient Background
    ============================================ */
 .cta-section {
-    background: var(--gradient-primary);
+    background: #0B1993;
     padding: 100px 0;
     position: relative;
     overflow: hidden;
@@ -2183,9 +2206,7 @@ section .btn-outline:hover {
     content: '';
     position: absolute;
     inset: 0;
-    background: 
-        radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(0,0,0,0.1) 0%, transparent 50%);
+    background: transparent;
     pointer-events: none;
 }
 
@@ -2193,7 +2214,7 @@ section .btn-outline:hover {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: none;
     pointer-events: none;
 }
 
@@ -2219,19 +2240,27 @@ section .btn-outline:hover {
 }
 
 .cta-section .btn-primary {
-    background: var(--bg-dark);
+    background: #428FE7;
+    color: #FFFFFF;
     padding: 20px 44px;
     font-size: 1rem;
+    border: 2px solid #428FE7;
 }
 
 .cta-section .btn-primary:hover {
-    background: var(--bg-darker);
-    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+    background: #FFFFFF;
+    color: #0B1993;
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0 3px #428FE7, var(--shadow-lg);
 }
 
 .cta-section .btn-primary:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px var(--text-white), var(--shadow-lg);
+    box-shadow: 0 0 0 3px #FFFFFF, var(--shadow-lg);
+}
+
+.cta-section .btn-primary svg {
+    stroke: currentColor;
 }
 
 /* ============================================
@@ -2788,7 +2817,7 @@ section .btn-outline:hover {
 .loader {
     position: fixed;
     inset: 0;
-    background: var(--bg-dark);
+    background: var(--bg-white);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2809,17 +2838,16 @@ section .btn-outline:hover {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 800;
-    color: #FFFFFF;
+    color: #000000;
     letter-spacing: -1px;
     display: block;
     margin-bottom: 24px;
+    line-height: 1.2;
 }
 
-.loader-text span {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.loader-text span.accent {
+    color: #428FE7;
+    display: block;
 }
 
 .loader-bar {
@@ -2836,7 +2864,7 @@ section .btn-outline:hover {
     display: block;
     width: 40%;
     height: 100%;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 3px;
     animation: loading 1s ease-in-out infinite;
 }
@@ -2855,7 +2883,7 @@ section .btn-outline:hover {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2867,7 +2895,7 @@ section .btn-outline:hover {
     transform: translateY(20px);
     transition: all var(--transition);
     z-index: 99;
-    box-shadow: var(--shadow-colored);
+    box-shadow: var(--shadow-md);
     border: none;
 }
 
@@ -2927,7 +2955,7 @@ section .btn-outline:hover {
 .scroll-progress-bar {
     height: 100%;
     width: 0%;
-    background: var(--gradient-primary);
+    background: var(--primary);
     transition: width 0.1s ease-out;
     box-shadow: 0 0 10px var(--primary-glow);
 }
@@ -3127,7 +3155,7 @@ section .btn-outline:hover {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--gradient-primary);
+    background: var(--primary);
     transform: translateX(-101%);
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
@@ -3173,7 +3201,7 @@ section .btn-outline:hover {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--primary);
     opacity: 0;
     transition: opacity 0.5s ease, width 0.5s ease;
 }
@@ -3288,3 +3316,7 @@ section .btn-outline:hover {
         display: none;
     }
 }
+
+
+
+

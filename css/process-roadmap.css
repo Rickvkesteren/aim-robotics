@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    PROCESS PAGE - Premium Roadmap
    ============================================ */
 
@@ -16,7 +16,7 @@ body:has(.proces-hero) .navbar .nav-link {
 
 body:has(.proces-hero) .navbar .nav-link:hover,
 body:has(.proces-hero) .navbar .nav-link.active {
-    color: #0066CC !important;
+    color: #0B1993 !important;
 }
 
 body:has(.proces-hero) .navbar .logo-text {
@@ -24,11 +24,11 @@ body:has(.proces-hero) .navbar .logo-text {
 }
 
 body:has(.proces-hero) .navbar .logo-text .accent {
-    color: #0066CC !important;
+    color: #0B1993 !important;
 }
 
 body:has(.proces-hero) .navbar .cta-button {
-    background: linear-gradient(135deg, #0066CC, #00A3FF) !important;
+    background: linear-gradient(135deg, #0B1993, #428FE7) !important;
     color: white !important;
 }
 
@@ -91,7 +91,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 }
 
 .proces-hero .gradient-text {
-    background: linear-gradient(135deg, #00A3FF 0%, #0066CC 40%, #FF6B00 100%);
+    background: linear-gradient(135deg, #428FE7 0%, #0B1993 40%, #428FE7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -170,7 +170,7 @@ body:has(.proces-hero) .navbar .hamburger span {
     border-radius: 100px;
     font-size: 0.8125rem;
     font-weight: 700;
-    color: #0066CC;
+    color: #0B1993;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 20px;
@@ -212,11 +212,11 @@ body:has(.proces-hero) .navbar .hamburger span {
     width: 6px;
     transform: translateX(-50%);
     background: linear-gradient(180deg, 
-        #0066CC 0%,
-        #00A3FF 20%,
+        #0B1993 0%,
+        #428FE7 20%,
         #10b981 40%,
-        #00A3FF 60%,
-        #0066CC 80%,
+        #428FE7 60%,
+        #0B1993 80%,
         #10b981 100%
     );
     border-radius: 6px;
@@ -282,7 +282,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 .step-marker {
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, #0066CC 0%, #00A3FF 100%);
+    background: linear-gradient(135deg, #0B1993 0%, #428FE7 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -438,7 +438,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 .step-icon svg {
     width: 28px;
     height: 28px;
-    stroke: #0066CC;
+    stroke: #0B1993;
     stroke-width: 1.5;
     fill: none;
 }
@@ -518,7 +518,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 .step-meta span svg {
     width: 16px;
     height: 16px;
-    stroke: #0066CC;
+    stroke: #0B1993;
 }
 
 /* ============================================
@@ -548,7 +548,7 @@ body:has(.proces-hero) .navbar .hamburger span {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #0066CC, #00A3FF, #10b981);
+    background: linear-gradient(90deg, #0B1993, #428FE7, #10b981);
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -600,7 +600,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 }
 
 .fase-badges span.active {
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 16px rgba(0, 102, 204, 0.35);
@@ -641,7 +641,7 @@ body:has(.proces-hero) .navbar .hamburger span {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #0066CC, #00A3FF);
+    background: linear-gradient(90deg, #0B1993, #428FE7);
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -668,7 +668,7 @@ body:has(.proces-hero) .navbar .hamburger span {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-radius: 12px;
     font-size: 1.25rem;
     font-weight: 800;
@@ -712,7 +712,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 }
 
 .trajectory-phases span.active {
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-color: transparent;
     color: white;
     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
@@ -735,7 +735,7 @@ body:has(.proces-hero) .navbar .hamburger span {
     justify-content: center;
     gap: 10px;
     padding: 14px 28px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     color: white;
     font-size: 0.9375rem;
     font-weight: 700;
@@ -768,7 +768,7 @@ body:has(.proces-hero) .navbar .hamburger span {
    CTA SECTIE
    ============================================ */
 .proces-cta {
-    background: linear-gradient(135deg, #0066CC 0%, #00A3FF 50%, #0077DD 100%);
+    background: linear-gradient(135deg, #0B1993 0%, #428FE7 50%, #0077DD 100%);
     padding: 100px 0;
     text-align: center;
     position: relative;
@@ -808,7 +808,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 
 .proces-cta .btn {
     background: white;
-    color: #0066CC;
+    color: #0B1993;
     padding: 18px 42px;
     font-size: 1.0625rem;
     font-weight: 700;
@@ -964,7 +964,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 .journey-icon {
     width: 56px;
     height: 56px;
-    background: linear-gradient(135deg, #0066CC, #00A3FF);
+    background: linear-gradient(135deg, #0B1993, #428FE7);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -1008,6 +1008,7 @@ body:has(.proces-hero) .navbar .hamburger span {
 }
 
 .journey-item:hover .arrow {
-    stroke: #0066CC;
+    stroke: #0B1993;
     transform: translateX(4px);
 }
+
